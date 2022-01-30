@@ -1,0 +1,173 @@
+[
+  {
+    "id": "1",
+    "name": "Borgo",
+    "number": "0",
+    "category": "base",
+    "available": true,
+    "color": "#5572c5",
+    "log": []
+  },
+  {
+    "id": "2",
+    "name": "Moloch",
+    "number": "0",
+    "category": "base",
+    "available": true,
+    "color": "#f02b1e",
+    "log": []
+  },
+  {
+    "id": "3",
+    "name": "Hegemony",
+    "number": "0",
+    "category": "base",
+    "available": true,
+    "color": "#e1a039",
+    "log": []
+  },
+  {
+    "id": "4",
+    "name": "Outpost",
+    "number": "0",
+    "category": "base",
+    "available": true,
+    "color": "#84ad47",
+    "log": []
+  },
+  {
+    "id": "5",
+    "name": "Steel Police",
+    "number": "1",
+    "category": "expansion",
+    "available": false,
+    "color": "#723e84",
+    "log": []
+  },
+  {
+    "id": "6",
+    "name": "Dancer",
+    "number": "2",
+    "category": "expansion",
+    "available": true,
+    "color": "#ad738f",
+    "log": []
+  },
+  {
+    "id": "7",
+    "name": "Sharrash",
+    "number": "3",
+    "category": "expansion",
+    "available": true,
+    "color": "#35857a",
+    "log": []
+  },
+  {
+    "id": "8",
+    "name": "Mephisto",
+    "number": "4",
+    "category": "expansion",
+    "available": true,
+    "color": "#7b1a04",
+    "log": []
+  },
+  {
+    "id": "9",
+    "name": "Mississippi",
+    "number": "5",
+    "category": "expansion",
+    "available": true,
+    "color": "#b2a47d",
+    "log": []
+  },
+  {
+    "id": "10",
+    "name": "Uranopolis",
+    "number": "6",
+    "category": "expansion",
+    "available": true,
+    "color": "#171717",
+    "log": []
+  },
+  {
+    "id": "11",
+    "name": "Death Breath",
+    "number": "7",
+    "category": "expansion",
+    "available": true,
+    "color": "#e5c904",
+    "log": []
+  },
+  {
+    "id": "12",
+    "name": "Neojungle",
+    "number": "8",
+    "category": "expansion",
+    "available": true,
+    "color": "#278c4a",
+    "log": []
+  },
+  {
+    "id": "13",
+    "name": "New York",
+    "number": "9",
+    "category": "expansion",
+    "available": true,
+    "color": "#71799d",
+    "log": []
+  },
+  {
+    "id": "14",
+    "name": "Smart",
+    "number": "10",
+    "category": "expansion",
+    "available": false,
+    "color": "#b0c4c9",
+    "log": []
+  },
+  {
+    "id": "15",
+    "name": "Vegas",
+    "number": "11",
+    "category": "expansion",
+    "available": false,
+    "color": "#e49676",
+    "log": []
+  },
+  {
+    "id": "16",
+    "name": "Iron Gang",
+    "number": "12",
+    "category": "expansion",
+    "available": true,
+    "color": "#d4d401",
+    "log": []
+  },
+  {
+    "id": "17",
+    "name": "Sand Runners",
+    "number": "13",
+    "category": "expansion",
+    "available": true,
+    "color": "#ed692b",
+    "log": []
+  },
+  {
+    "id": "18",
+    "name": "Troglodytes",
+    "number": "14",
+    "category": "expansion",
+    "available": true,
+    "color": "#70c7f6",
+    "log": []
+  },
+  {
+    "id": "19",
+    "name": "Beasts",
+    "number": "15",
+    "category": "expansion",
+    "available": true,
+    "color": "#f2a328",
+    "log": []
+  }
+]
