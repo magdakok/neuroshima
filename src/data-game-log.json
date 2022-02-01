@@ -1,0 +1,36 @@
+[
+  {
+    "time": "",
+    "players": [
+      {
+        "playerName": "Magda",
+        "playerId": "0",
+        "armyId": "",
+        "damage": 20
+      },
+      {
+        "playerName": "Ollie",
+        "playerId": "1",
+        "armyId": "",
+        "damage": 0
+      }
+    ]
+  },
+  {
+    "time": "",
+    "players": [
+      {
+        "playerName": "Magda",
+        "playerId": "0",
+        "armyId": "",
+        "damage": 2
+      },
+      {
+        "playerName": "Ollie",
+        "playerId": "1",
+        "armyId": "",
+        "damage": 6
+      }
+    ]
+  }
+]
