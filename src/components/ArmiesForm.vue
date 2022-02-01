@@ -16,6 +16,8 @@ const leftArmiesLength = computed(() => {
 const checkedArmies = ref<Army[]>([...availableArmies.value]);
 const leftArmies = ref<Army[]>([...availableArmies.value]);
 const games = ref<any>([]);
+const templateKey = ref<string>("");
+let leftArmiesSet;
 
 const emit = defineEmits<{ (event: "handleGamesEmit", value: any[]): void }>();
 
@@ -23,8 +25,8 @@ const handleSubmit = () => {
   if (leftArmiesLength.value < 3) {
     leftArmies.value = [...checkedArmies.value];
   }
-
   createGame();
+  templateKey.value = "refreshTemplateToggle";
 };
 
 function createGame() {
@@ -33,6 +35,10 @@ function createGame() {
     time: Date.now(),
   });
   emit("handleGamesEmit", games.value);
+
+  leftArmiesSet = new Set();
+  leftArmies.value.forEach((leftArmy) => leftArmiesSet.add(leftArmy.id));
+  templateKey.value = "refreshTemplateStyles";
 }
 
 function pickArmy() {
@@ -42,15 +48,23 @@ function pickArmy() {
 const handleChange = () => {
   leftArmies.value = [...checkedArmies.value];
 };
+
+function setAsPlayed(army) {
+  let opacity = "1";
+  if (typeof leftArmiesSet === "object" && !leftArmiesSet.has(army)) {
+    opacity = "0.3";
+  }
+  return opacity;
+}
 </script>
 <template>
-  <form @submit.prevent="handleSubmit" @change="handleChange">
+  <form @submit.prevent="handleSubmit" @change="handleChange" :key="templateKey">
     <div class="c-army-checkbox__container">
       <div v-for="army in availableArmies" :army="army" :key="army.id">
         <label
           class="c-army-checkbox__label"
           :for="'input' + army.id"
-          :style="{ 'border-color': army.color }"
+          :style="{ 'border-color': army.color, opacity: setAsPlayed(army.id) }"
           ><input
             class="c-army-checkbox__input"
             type="checkbox"
