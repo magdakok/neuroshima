@@ -31,7 +31,7 @@
     "name": "Outpost",
     "number": "0",
     "category": "base",
-    "available": true,
+    "available": false,
     "color": "#84ad47",
     "log": []
   },

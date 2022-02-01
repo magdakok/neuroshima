@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import ArmiesForm from "@/components/ArmiesForm.vue";
+import data from "@/data.json";
+
+const players = ["Magda", "Ollie"];
+const armies = ref(data);
+const games = ref([]);
+
+const handleGamesEmit = (payload: any) => {
+  games.value = payload;
+};
+
+const createDate = (timestamp: number) => {
+  return new Date(timestamp).toLocaleString();
+};
+</script>
 <template>
   <ArmiesForm :armies="armies" @handleGamesEmit="handleGamesEmit" />
   <div v-if="games">
@@ -10,42 +27,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref, computed, inject } from "vue";
-import ArmiesForm from "@/components/ArmiesForm.vue";
-import { Army } from "@/types";
-import data from "@/data.json";
-
-const MainPage = defineComponent({
-  components: {
-    ArmiesForm,
-  },
-  setup() {
-    const players = ["Magda", "Ollie"];
-    const armies = ref(data);
-    const games = ref([]);
-
-    function handleGamesEmit(payload: any) {
-      games.value = payload;
-    }
-
-    function createDate(timestamp: number) {
-      return new Date(timestamp).toLocaleString();
-    }
-
-    return {
-      players,
-      armies,
-      games,
-      handleGamesEmit,
-      createDate,
-    };
-  },
-});
-
-export default MainPage;
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
