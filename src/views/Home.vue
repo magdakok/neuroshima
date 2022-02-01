@@ -5,6 +5,7 @@ import CurrentGame from "@/components/CurrentGame.vue";
 import dataAllArmies from "@/data-all-armies.json";
 import dataGameLog from "@/data-game-log.json";
 
+const players = ["Magda", "Ollie"];
 const armies = ref(dataAllArmies);
 const gameLog = ref(dataGameLog);
 const games = ref([]);
@@ -19,8 +20,8 @@ const handleGameLogEmit = (payload: any) => {
 };
 </script>
 <template>
-  <ArmiesForm :armies="armies" @handleArmiesEmit="handleArmiesEmit" />
-  <CurrentGame :games="games" @handleGameLogEmit="handleGameLogEmit" />
+  <ArmiesForm :armies="armies" :players="players" @handleArmiesEmit="handleArmiesEmit" />
+  <CurrentGame :games="games" :players="players" @handleGameLogEmit="handleGameLogEmit" />
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

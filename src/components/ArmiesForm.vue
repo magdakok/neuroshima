@@ -4,6 +4,7 @@ import { Army } from "@/types";
 
 const props = defineProps({
   armies: { type: Object as PropType<Army[]>, required: true },
+  players: { type: Object as PropType<string[]>, required: true },
 });
 
 const availableArmies = computed(() => {
@@ -30,8 +31,13 @@ const handleSubmit = () => {
 };
 
 function createGame() {
+  const playersArray = [];
+  for (let i = 0; i < props.players.length; i++) {
+    playersArray[i] = pickArmy();
+  }
+
   games.value.push({
-    players: [pickArmy(), pickArmy()],
+    players: playersArray,
     time: Date.now(),
   });
   emit("handleArmiesEmit", games.value);

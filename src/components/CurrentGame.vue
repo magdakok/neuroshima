@@ -8,14 +8,15 @@ import {
   onBeforeMount,
 } from "@vue/runtime-core";
 
-onBeforeMount(() => {
-  players.forEach((player) => (inputs[player] = 0));
-});
-
 const props = defineProps({
   games: { type: Object as PropType<any[]> },
+  players: { type: Object as PropType<string[]>, required: true },
 });
-const players = ["Magda", "Ollie"];
+
+onBeforeMount(() => {
+  props.players.forEach((player) => (inputs[player] = 0));
+});
+
 const currentGame = computed(() => props.games[props.games.length - 1]);
 const inputs = reactive({});
 
