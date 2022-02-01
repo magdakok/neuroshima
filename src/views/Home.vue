@@ -4,8 +4,9 @@ import ArmiesForm from "@/components/ArmiesForm.vue";
 import CurrentGame from "@/components/CurrentGame.vue";
 import dataAllArmies from "@/data-all-armies.json";
 import dataGameLog from "@/data-game-log.json";
+import dataPlayers from "@/data-players.json";
 
-const players = ["Magda", "Ollie"];
+const players = ref(dataPlayers);
 const armies = ref(dataAllArmies);
 const gameLog = ref(dataGameLog);
 const games = ref([]);

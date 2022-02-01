@@ -4,7 +4,7 @@ import { Army } from "@/types";
 
 const props = defineProps({
   armies: { type: Object as PropType<Army[]>, required: true },
-  players: { type: Object as PropType<string[]>, required: true },
+  players: { type: Object as PropType<any[]>, required: true },
 });
 
 const availableArmies = computed(() => {
@@ -23,7 +23,7 @@ let leftArmiesSet;
 const emit = defineEmits<{ (event: "handleArmiesEmit", value: any[]): void }>();
 
 const handleSubmit = () => {
-  if (leftArmiesLength.value < 3) {
+  if (leftArmiesLength.value <= props.players.length) {
     leftArmies.value = [...checkedArmies.value];
   }
   createGame();
