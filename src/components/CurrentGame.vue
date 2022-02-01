@@ -1,20 +1,36 @@
 <script setup lang="ts">
-import { defineProps, PropType, computed } from "@vue/runtime-core";
+import {
+  defineProps,
+  PropType,
+  computed,
+  defineEmits,
+  reactive,
+  onBeforeMount,
+} from "@vue/runtime-core";
+
+onBeforeMount(() => {
+  players.forEach((player) => (inputs[player] = 0));
+});
 
 const props = defineProps({
   games: { type: Object as PropType<any[]> },
 });
 const players = ["Magda", "Ollie"];
 const currentGame = computed(() => props.games[props.games.length - 1]);
+const inputs = reactive({});
 
 const createDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleString();
 };
 
-// const emit = defineEmits<{ (event: "handleGamesEmit", value: any[]): void }>();
+const handleFormSubmit = (e) => {
+  emit("handleGameLogEmit", inputs);
+};
+
+const emit = defineEmits<{ (event: "handleGameLogEmit", value: any[]): void }>();
 </script>
 <template>
-  <form class="c-current-game" v-if="games.length">
+  <form class="c-current-game" @submit.prevent="handleFormSubmit" v-if="games.length">
     <span class="c-current-game__time">Game {{ createDate(currentGame.time) }}</span>
     <div
       class="c-current-game__players"
@@ -24,7 +40,13 @@ const createDate = (timestamp: number) => {
       <div class="c-current-game__player">
         <span class="c-current-game__name">{{ players[i] }}</span>
         <span class="c-current-game__army">{{ playerArmy.name }}</span>
-        <input type="number" />
+        <input
+          type="number"
+          min="0"
+          max="20"
+          :name="'inputDamage' + players[i]"
+          v-model="inputs[players[i]]"
+        />
       </div>
     </div>
     <button>SAVE</button>

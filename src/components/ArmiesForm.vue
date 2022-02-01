@@ -19,7 +19,7 @@ const games = ref<any>([]);
 const templateKey = ref<string>("");
 let leftArmiesSet;
 
-const emit = defineEmits<{ (event: "handleGamesEmit", value: any[]): void }>();
+const emit = defineEmits<{ (event: "handleArmiesEmit", value: any[]): void }>();
 
 const handleSubmit = () => {
   if (leftArmiesLength.value < 3) {
@@ -34,7 +34,7 @@ function createGame() {
     players: [pickArmy(), pickArmy()],
     time: Date.now(),
   });
-  emit("handleGamesEmit", games.value);
+  emit("handleArmiesEmit", games.value);
 
   leftArmiesSet = new Set();
   leftArmies.value.forEach((leftArmy) => leftArmiesSet.add(leftArmy.id));
