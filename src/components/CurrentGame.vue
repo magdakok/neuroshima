@@ -8,10 +8,12 @@ import {
   onBeforeMount,
   ref,
 } from "@vue/runtime-core";
+import { GamelogPlayer } from "@/types";
 
 const props = defineProps({
   games: { type: Object as PropType<any[]> },
   players: { type: Object as PropType<any[]>, required: true },
+  request: { type: Object, required: true },
 });
 
 onBeforeMount(() => {
@@ -19,6 +21,9 @@ onBeforeMount(() => {
 });
 
 const currentGame = computed(() => props.games[props.games.length - 1]);
+const disableSubmitButton = computed(
+  () => props.request.activeRequest && props.request.success
+);
 const inputs = reactive({});
 const temporaryPassword = ref<string>();
 
@@ -26,7 +31,8 @@ const createDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleString();
 };
 
-const emit = defineEmits<{ (event: "handleGameLogEmit", value: any[]): void }>();
+const emit =
+  defineEmits<{ (event: "handleGameLogEmit", value: any[]): void }>();
 const handleFormSubmit = () => {
   let payload = {
     gameId: currentGame.value.time,
@@ -36,7 +42,7 @@ const handleFormSubmit = () => {
   };
 
   currentGame.value.players.forEach((player, i) => {
-    let playerData = {
+    let playerData: GamelogPlayer = {
       playerName: props.players[i].playerName,
       playerId: props.players[i].playerId,
       armyId: currentGame.value.players[i].id,
@@ -52,8 +58,14 @@ const handleFormSubmit = () => {
 </script>
 <template>
   <div class="c-current-game__container">
-    <form class="c-current-game" @submit.prevent="handleFormSubmit" v-if="games.length">
-      <span class="c-current-game__time">Game {{ createDate(currentGame.time) }}</span>
+    <form
+      class="c-current-game"
+      @submit.prevent="handleFormSubmit"
+      v-if="games.length"
+    >
+      <span class="c-current-game__time"
+        >Game {{ createDate(currentGame.time) }}</span
+      >
       <div class="c-current-game__players">
         <div
           class="c-current-game__player"
@@ -78,7 +90,10 @@ const handleFormSubmit = () => {
         v-model="temporaryPassword"
         placeholder="password xD"
       />
-      <button class="c-current-game__submit">SAVE</button>
+      <button class="c-current-game__submit" :disabled="disableSubmitButton">
+        SAVE
+      </button>
+      <span v-if="request.activeRequest">{{ request.message }}</span>
     </form>
   </div>
 </template>
