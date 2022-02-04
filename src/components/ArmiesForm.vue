@@ -23,7 +23,7 @@ let leftArmiesSet;
 const emit = defineEmits<{ (event: "handleArmiesEmit", value: any[]): void }>();
 
 const handleSubmit = () => {
-  if (leftArmiesLength.value <= props.players.length) {
+  if (leftArmiesLength.value < props.players.length) {
     leftArmies.value = [...checkedArmies.value];
   }
   createGame();
@@ -95,7 +95,7 @@ function setAsPlayed(army) {
 
 .c-army-checkbox__label {
   display: inline-block;
-  padding: 10px 15px;
+  padding: 5px 7px;
   margin: 5px;
   border-width: 5px;
   border-style: solid;

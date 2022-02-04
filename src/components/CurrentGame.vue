@@ -6,6 +6,7 @@ import {
   defineEmits,
   reactive,
   onBeforeMount,
+  ref,
 } from "@vue/runtime-core";
 
 const props = defineProps({
@@ -19,6 +20,7 @@ onBeforeMount(() => {
 
 const currentGame = computed(() => props.games[props.games.length - 1]);
 const inputs = reactive({});
+const temporaryPassword = ref<string>();
 
 const createDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleString();
@@ -30,6 +32,7 @@ const handleFormSubmit = () => {
     gameId: currentGame.value.time,
     time: createDate(currentGame.value.time),
     players: [],
+    password: temporaryPassword.value,
   };
 
   currentGame.value.players.forEach((player, i) => {
@@ -48,50 +51,84 @@ const handleFormSubmit = () => {
 };
 </script>
 <template>
-  <form class="c-current-game" @submit.prevent="handleFormSubmit" v-if="games.length">
-    <span class="c-current-game__time">Game {{ createDate(currentGame.time) }}</span>
-    <div
-      class="c-current-game__players"
-      v-for="(playerArmy, i) in currentGame.players"
-      :key="playerArmy"
-    >
-      <div class="c-current-game__player">
-        <span class="c-current-game__name">{{ players[i].playerName }}</span>
-        <span class="c-current-game__army">{{ playerArmy.name }}</span>
-        <input
-          type="number"
-          min="0"
-          max="20"
-          :name="'inputDamage' + players[i].playerName"
-          v-model="inputs[players[i].playerName]"
-        />
+  <div class="c-current-game__container">
+    <form class="c-current-game" @submit.prevent="handleFormSubmit" v-if="games.length">
+      <span class="c-current-game__time">Game {{ createDate(currentGame.time) }}</span>
+      <div class="c-current-game__players">
+        <div
+          class="c-current-game__player"
+          v-for="(playerArmy, i) in currentGame.players"
+          :key="playerArmy"
+        >
+          <span class="c-current-game__name">{{ players[i].playerName }}</span>
+          <span class="c-current-game__army">{{ playerArmy.name }}</span>
+          <input
+            class="c-current-game__input--damage"
+            type="number"
+            min="0"
+            max="20"
+            :name="'inputDamage' + players[i].playerName"
+            v-model="inputs[players[i].playerName]"
+          />
+        </div>
       </div>
-    </div>
-    <button>SAVE</button>
-  </form>
+      <input
+        class="c-current-game__input--password"
+        type="text"
+        v-model="temporaryPassword"
+        placeholder="password xD"
+      />
+      <button class="c-current-game__submit">SAVE</button>
+    </form>
+  </div>
 </template>
 <style lang="scss">
-.c-army-checkbox__container {
+.c-current-game__container {
   display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
 }
-
-.c-army-checkbox__label {
+.c-current-game__time {
   display: inline-block;
-  padding: 10px 15px;
-  margin: 5px;
-  border-width: 5px;
-  border-style: solid;
-  cursor: pointer;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.c-current-game__players {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  display: flex;
+  min-width: 350px;
+}
+.c-current-game__player {
+  min-width: 100px;
+}
+.c-current-game__name {
+  margin-bottom: 8px;
+  display: block;
+}
+.c-current-game__army {
+  margin-bottom: 8px;
+  display: block;
+}
+.c-current-game__input--damage {
+  font-size: 25px;
+  padding: 10px;
+
+  text-align: center;
 }
 
-.c-army-checkbox__button {
-  padding: 10px 20px;
-  background-color: black;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-bottom: 20px;
+.c-current-game__input--password {
+  border-color: palevioletred;
+  padding: 5px;
+  font-size: 20px;
+  margin: 10px;
+  box-shadow: none;
+}
+
+.c-current-game__submit {
+  display: block;
+  padding: 8px 15px;
+  font-size: 25px;
 }
 </style>

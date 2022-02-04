@@ -31,7 +31,7 @@
     "name": "Outpost",
     "number": "0",
     "category": "base",
-    "available": false,
+    "available": true,
     "color": "#84ad47",
     "log": []
   },
@@ -40,7 +40,7 @@
     "name": "Steel Police",
     "number": "1",
     "category": "expansion",
-    "available": false,
+    "available": true,
     "color": "#723e84",
     "log": []
   },
@@ -121,7 +121,7 @@
     "name": "Smart",
     "number": "10",
     "category": "expansion",
-    "available": false,
+    "available": true,
     "color": "#b0c4c9",
     "log": []
   },
@@ -130,7 +130,7 @@
     "name": "Vegas",
     "number": "11",
     "category": "expansion",
-    "available": false,
+    "available": true,
     "color": "#e49676",
     "log": []
   },

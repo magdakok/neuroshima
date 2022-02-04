@@ -5,6 +5,8 @@ import CurrentGame from "@/components/CurrentGame.vue";
 import dataAllArmies from "@/data-all-armies.json";
 import dataGameLog from "@/data-game-log.json";
 import dataPlayers from "@/data-players.json";
+import db from "@/firebase/firebaseInit";
+import { collection, addDoc } from "firebase/firestore/lite";
 
 const players = ref(dataPlayers);
 const armies = ref(dataAllArmies);
@@ -15,9 +17,13 @@ const handleArmiesEmit = (payload: any) => {
   games.value = payload;
 };
 
-const handleGameLogEmit = (payload: any) => {
-  console.log(payload);
-  //here adding points to recent game
+const handleGameLogEmit = async (payload: any) => {
+  try {
+    const docRef = await addDoc(collection(db, "gameslog"), payload);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
 };
 </script>
 <template>
