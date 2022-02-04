@@ -100,28 +100,4 @@ function setAsPlayed(army: Army) {
     <button class="c-army-checkbox__button" type="submit">Play!</button>
   </form>
 </template>
-<style lang="scss">
-.c-army-checkbox__container {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
 
-.c-army-checkbox__label {
-  display: inline-block;
-  padding: 5px 7px;
-  margin: 5px;
-  border-width: 5px;
-  border-style: solid;
-  cursor: pointer;
-}
-
-.c-army-checkbox__button {
-  padding: 10px 20px;
-  background-color: black;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-</style>
