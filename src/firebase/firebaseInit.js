@@ -8,7 +8,7 @@ import { getFirestore } from "firebase/firestore/lite";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "FILL",
+  apiKey: process.env.VUE_APP_API_KEY,
   authDomain: "neuroshima-e141d.firebaseapp.com",
   databaseURL: "https://neuroshima-e141d-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "neuroshima-e141d",
