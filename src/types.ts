@@ -12,6 +12,7 @@ export interface Request {
   activeRequest: boolean;
   success: null | boolean;
   message: null | string;
+  submitBtn: string;
 }
 
 export interface GamelogPlayer {

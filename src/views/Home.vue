@@ -15,6 +15,7 @@ const request: Request = reactive({
   activeRequest: false,
   success: null,
   message: null,
+  submitBtn: "Save",
 });
 
 const handleArmiesEmit = (payload: any) => {
@@ -36,18 +37,21 @@ const handleSuccess = () => {
   request.activeRequest = true;
   request.success = true;
   request.message = "Saved the score";
+  request.submitBtn = "Success!";
 };
 
 const handleError = () => {
   request.activeRequest = true;
   request.success = false;
   request.message = "Request couldn't be saved";
+  request.submitBtn = "Save";
 };
 
 const resetRequest = () => {
   request.activeRequest = false;
   request.success = null;
   request.message = null;
+  request.submitBtn = "Save";
 };
 </script>
 <template>
@@ -55,6 +59,7 @@ const resetRequest = () => {
     :armies="armies"
     :players="players"
     @handleArmiesEmit="handleArmiesEmit"
+    @resetRequest="resetRequest"
   />
   <CurrentGame
     :games="games"

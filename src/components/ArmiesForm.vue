@@ -26,14 +26,16 @@ const games = ref<any>([]);
 const templateKey = ref<string>("");
 let leftArmiesSet: any;
 
-const emit = defineEmits<{ (event: "handleArmiesEmit", value: any[]): void }>();
+const emit = defineEmits<{
+  (event: "handleArmiesEmit" | "resetRequest", value: any[] | void): void;
+}>();
 
 const handleSubmit = () => {
   if (leftArmiesLength.value < props.players.length) {
     leftArmies.value = [...checkedArmies.value];
   }
   createGame();
-  //here resetting parent request
+  emit("resetRequest");
   templateKey.value = "refreshTemplateToggle";
 };
 

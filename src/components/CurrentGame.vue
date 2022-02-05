@@ -91,7 +91,7 @@ const handleFormSubmit = () => {
         placeholder="password xD"
       />
       <button class="c-current-game__submit" :disabled="disableSubmitButton">
-        SAVE
+        {{ request.submitBtn }}
       </button>
       <span v-if="request.activeRequest">{{ request.message }}</span>
     </form>
