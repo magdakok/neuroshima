@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore/lite";
+const PROD = process.env.NODE_ENV === "production";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -8,15 +9,18 @@ import { getFirestore } from "firebase/firestore/lite";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.VUE_APP_API_KEY,
+  apiKey: PROD ? process.env.FIREBASE_API_KEY : process.env.VUE_APP_API_KEY,
   authDomain: "neuroshima-e141d.firebaseapp.com",
-  databaseURL: "https://neuroshima-e141d-default-rtdb.europe-west1.firebasedatabase.app",
+  databaseURL:
+    "https://neuroshima-e141d-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "neuroshima-e141d",
   storageBucket: "neuroshima-e141d.appspot.com",
   messagingSenderId: "1021604911323",
   appId: "1:1021604911323:web:4299854c63a5885b8c14fe",
   measurementId: "G-988WX6C3B4",
 };
+
+console.log(process.env.NODE_ENV);
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
