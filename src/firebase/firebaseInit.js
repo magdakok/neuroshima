@@ -8,8 +8,8 @@ const PROD = process.env.NODE_ENV === "production";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: PROD ? process.env.FIREBASE_API_KEY : process.env.VUE_APP_API_KEY,
+const firebaseConfigDev = {
+  apiKey: process.env.VUE_APP_API_KEY,
   authDomain: "neuroshima-e141d.firebaseapp.com",
   databaseURL:
     "https://neuroshima-e141d-default-rtdb.europe-west1.firebasedatabase.app",
@@ -20,10 +20,20 @@ const firebaseConfig = {
   measurementId: "G-988WX6C3B4",
 };
 
-console.log(process.env.NODE_ENV);
+const firebaseConfigProd = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: "neuroshima---prod.firebaseapp.com",
+  projectId: "neuroshima---prod",
+  storageBucket: "neuroshima---prod.appspot.com",
+  messagingSenderId: "326121584983",
+  appId: "1:326121584983:web:29d54003e708d571cfe612",
+};
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+
+const firebaseApp = initializeApp(
+  PROD ? firebaseConfigProd : firebaseConfigDev
+);
 const db = getFirestore(firebaseApp);
 
 export default db;
