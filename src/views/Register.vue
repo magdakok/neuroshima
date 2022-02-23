@@ -1,10 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-// import {
-//   getAuth,
-//   createUserWithEmailAndPassword,
-//   updateProfile,
-// } from "firebase/auth";
 import { useStore } from "vuex";
 
 const store = useStore();

@@ -1,22 +1,17 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const email = ref("");
 const password = ref("");
 
 const handleSubmit = () => {
-  const auth = getAuth();
-  signInWithEmailAndPassword(auth, email.value, password.value)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(userCredential);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    });
+  store.dispatch("loginAction", {
+    email: email.value,
+    password: password.value,
+  });
 };
 </script>
 <template>
