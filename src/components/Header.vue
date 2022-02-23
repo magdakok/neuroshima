@@ -1,21 +1,16 @@
 <script setup lang="ts">
 import { defineProps, PropType } from "vue";
 import { getAuth, signOut } from "firebase/auth";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const props = defineProps({
   loggedIn: { type: Boolean, required: true },
 });
 
 const handleLogOut = () => {
-  const auth = getAuth();
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-      //TODO: reset all numbers and arrays
-    })
-    .catch((error) => {
-      // An error happened.
-    });
+  store.dispatch("logoutAction");
 };
 </script>
 <template>

@@ -9,7 +9,7 @@ const password = ref("");
 const name = ref("");
 
 const handleSubmit = () => {
-  store.dispatch("signUpAction", {
+  store.dispatch("registerAction", {
     email: email.value,
     password: password.value,
     name: name.value,

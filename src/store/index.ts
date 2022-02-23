@@ -1,8 +1,9 @@
 import { createStore } from "vuex";
 import {
   getAuth,
-  createUserWithEmailAndPassword, 
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 const initialState = () => {
@@ -20,7 +21,7 @@ export default createStore({
     },
   },
   actions: {
-    signUpAction({ commit }, payload) {
+    registerAction({ commit }, payload) {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, payload.email, payload.password)
         .then((userCredential) => {
@@ -32,7 +33,7 @@ export default createStore({
           console.log(error.message);
         });
     },
-    loginAction({commit}, payload){
+    loginAction({ commit }, payload) {
       const auth = getAuth();
       signInWithEmailAndPassword(auth, payload.email, payload.password)
         .then((userCredential) => {
@@ -43,7 +44,17 @@ export default createStore({
           commit("setError", error.message);
           console.log(error.message);
         });
-    }
+    },
+    logoutAction({ commit }) {
+      const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          commit("setUser", null);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
   },
   getters: {
     getUser(state) {
@@ -54,6 +65,6 @@ export default createStore({
     },
     getError(state) {
       return state.error;
-    }
+    },
   },
 });
