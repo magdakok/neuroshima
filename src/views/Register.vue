@@ -1,31 +1,24 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+// import {
+//   getAuth,
+//   createUserWithEmailAndPassword,
+//   updateProfile,
+// } from "firebase/auth";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const email = ref("");
 const password = ref("");
 const name = ref("");
 
 const handleSubmit = () => {
-  const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(userCredential);
-      updateProfile(auth.currentUser, {
-        displayName: name.value,
-      });
-      console.log(user);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    });
+  store.dispatch("signUpAction", {
+    email: email.value,
+    password: password.value,
+    name: name.value,
+  });
 };
 </script>
 <template>
