@@ -6,6 +6,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Home",
     component: Home,
+    props: {
+      loggedIn: Boolean
+    }
   },
   {
     path: "/login",

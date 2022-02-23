@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, defineProps } from "vue";
 import ArmiesForm from "@/components/ArmiesForm.vue";
 import CurrentGame from "@/components/CurrentGame.vue";
 import dataAllArmies from "@/data-all-armies.json";
@@ -7,6 +7,7 @@ import dataPlayers from "@/data-players.json";
 import db from "@/firebase/firebaseInit";
 import { collection, addDoc } from "firebase/firestore/lite";
 import { Request, Gamelog } from "@/types";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const players = ref(dataPlayers);
 const armies = ref(dataAllArmies);
@@ -16,6 +17,10 @@ const request: Request = reactive({
   success: null,
   message: null,
   submitBtn: "Save",
+});
+
+const props = defineProps({
+  loggedIn: { type: Boolean, required: true },
 });
 
 const handleArmiesEmit = (payload: any) => {
