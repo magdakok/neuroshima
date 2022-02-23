@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { defineProps, PropType } from "vue";
-import { getAuth, signOut } from "firebase/auth";
+import { computed } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
-
-const props = defineProps({
-  loggedIn: { type: Boolean, required: true },
-});
+const loggedIn = computed(() => store.getters.isUserAuth);
+const user = computed(() => store.getters.getUser);
 
 const handleLogOut = () => {
   store.dispatch("logoutAction");
@@ -15,7 +12,7 @@ const handleLogOut = () => {
 </script>
 <template>
   <header v-if="loggedIn" class="c-header">
-    Profile | <button @click="handleLogOut">Log out</button>
+    Profile - {{ user.email }} | <button @click="handleLogOut">Log out</button>
   </header>
   <header v-else class="c-header">
     <router-link to="/" class="c-header__link">Logo</router-link> |

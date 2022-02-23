@@ -1,36 +1,20 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from "vue-router";
-import { onBeforeMount, ref } from "vue";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onBeforeMount } from "vue";
+import { useStore } from "vuex";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 
-const router = useRouter();
-const route = useRoute();
-const loggedIn = ref(false);
+const store = useStore();
 
 onBeforeMount(() => {
-  const auth = getAuth();
-
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      loggedIn.value = false;
-    } else if (route.path === "/login" || route.path === "/register") {
-      router.replace("/");
-      loggedIn.value = true;
-      console.log(user);
-    } else {
-      loggedIn.value = true;
-      console.log(user);
-    }
-  });
+  store.dispatch("authAction");
 });
 </script>
 
 <template>
-  <Header :loggedIn="loggedIn" />
+  <Header />
   <main class="c-main">
-    <router-view :loggedIn="loggedIn" />
+    <router-view />
   </main>
   <Footer />
 </template>

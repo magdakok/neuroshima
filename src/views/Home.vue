@@ -19,10 +19,6 @@ const request: Request = reactive({
   submitBtn: "Save",
 });
 
-const props = defineProps({
-  loggedIn: { type: Boolean, required: true },
-});
-
 const handleArmiesEmit = (payload: any) => {
   games.value = payload;
 };

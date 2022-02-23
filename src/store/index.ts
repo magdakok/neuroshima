@@ -4,7 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
+import { useRouter, useRoute } from "vue-router";
 
 const initialState = () => {
   return { user: null, error: null };
@@ -54,6 +56,24 @@ export default createStore({
         .catch((error) => {
           console.log(error.message);
         });
+    },
+    authAction({ commit }) {
+      const auth = getAuth();
+      const router = useRouter();
+      const route = useRoute();
+
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          commit("setUser", null);
+        } else if (route.path === "/login" || route.path === "/register") {
+          router.replace("/");
+          commit("setUser", user);
+          console.log(user);
+        } else {
+          commit("setUser", user);
+          console.log(user);
+        }
+      });
     },
   },
   getters: {
