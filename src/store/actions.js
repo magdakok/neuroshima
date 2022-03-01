@@ -33,7 +33,6 @@ const actions = {
     signInWithEmailAndPassword(auth, payload.email, payload.password)
       .then((userCredential) => {
         commit("setUser", userCredential.user);
-        console.log(userCredential.user);
       })
       .catch((error) => {
         commit("setError", error.message);
@@ -61,10 +60,8 @@ const actions = {
       } else if (route.path === "/login" || route.path === "/register") {
         router.replace("/");
         commit("setUser", user);
-        console.log(user);
       } else {
         commit("setUser", user);
-        console.log(user);
       }
     });
   },

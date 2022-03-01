@@ -21,7 +21,6 @@ const handleSubmit = () => {
   playerInputs.value.forEach((player, i) => {
     userData.players.push(player);
   });
-  console.log(userData);
   store.dispatch("registerAction", {
     email: email.value,
     password: password.value,

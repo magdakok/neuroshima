@@ -54,8 +54,6 @@ const handleFormSubmit = () => {
 
     payload.players.push(playerData);
   });
-  console.log(payload);
-
   emit("handleGameLogEmit", payload);
 };
 </script>
