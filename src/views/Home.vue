@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { ref, reactive, defineProps } from "vue";
+import { ref, reactive } from "vue";
 import ArmiesForm from "@/components/ArmiesForm.vue";
-import CurrentGame from "@/components/CurrentGame.vue";
+import CurrentGameLogged from "@/components/CurrentGameLogged.vue";
+import CurrentGameAnonymous from "@/components/CurrentGameAnonymous.vue";
 import dataAllArmies from "@/data-all-armies.json";
 import dataPlayers from "@/data-players.json";
 import db from "@/firebase/firebaseInit";
 import { collection, addDoc } from "firebase/firestore/lite";
 import { Request, Gamelog } from "@/types";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const players = ref(dataPlayers);
 const armies = ref(dataAllArmies);
@@ -30,7 +33,7 @@ const handleGameLogEmit = async (payload: Gamelog) => {
     handleSuccess();
   } catch (e) {
     handleError();
-    console.log("You don't know the password :(");
+    console.log(e);
   }
 };
 
@@ -62,10 +65,12 @@ const resetRequest = () => {
     @handleArmiesEmit="handleArmiesEmit"
     @resetRequest="resetRequest"
   />
-  <CurrentGame
+  <CurrentGameLogged
+    v-if="store.getters.isUserAuth"
     :games="games"
     :players="players"
     :request="request"
     @handleGameLogEmit="handleGameLogEmit"
   />
+  <CurrentGameAnonymous v-else :games="games" :players="players" />
 </template>

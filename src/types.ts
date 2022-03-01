@@ -17,14 +17,14 @@ export interface Request {
 
 export interface GamelogPlayer {
   playerName: string;
-  playerId: string;
   armyId: string;
   armyName: string;
-  damage: number,
+  damage: number;
 }
 export interface Gamelog {
   gameId: number;
   time: string;
-  players: GamelogPlayer[],
-  password: string,
+  userUID: string;
+  players: GamelogPlayer[];
+  password: string;
 }

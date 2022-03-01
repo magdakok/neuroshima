@@ -6,6 +6,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import db from "@/firebase/firebaseInit.js";
+import { collection, addDoc } from "firebase/firestore/lite";
 import { useRouter, useRoute } from "vue-router";
 
 const initialState = () => {
@@ -28,7 +30,9 @@ export default createStore({
       createUserWithEmailAndPassword(auth, payload.email, payload.password)
         .then((userCredential) => {
           commit("setUser", userCredential.user);
-          console.log(userCredential.user);
+          console.log(userCredential.user.uid);
+          const docRef = addDoc(collection(db, "users"), payload.dbUserData);
+          console.log(docRef);
         })
         .catch((error) => {
           commit("setError", error.message);

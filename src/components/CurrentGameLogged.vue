@@ -9,6 +9,9 @@ import {
   ref,
 } from "@vue/runtime-core";
 import { GamelogPlayer } from "@/types";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const props = defineProps({
   games: { type: Object as PropType<any[]> },
@@ -25,7 +28,7 @@ const disableSubmitButton = computed(
   () => props.request.activeRequest && props.request.success
 );
 const inputs = reactive({});
-const temporaryPassword = ref<string>();
+const comment = ref<string>();
 
 const createDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleString();
@@ -35,16 +38,16 @@ const emit =
   defineEmits<{ (event: "handleGameLogEmit", value: any[]): void }>();
 const handleFormSubmit = () => {
   let payload = {
-    gameId: currentGame.value.time,
+    gameId: currentGame.value.time + "-" + store.getters.getUser.uid,
     time: createDate(currentGame.value.time),
+    userUID: store.getters.getUser.uid,
     players: [],
-    password: temporaryPassword.value,
+    comment: comment.value,
   };
 
   currentGame.value.players.forEach((player, i) => {
     let playerData: GamelogPlayer = {
       playerName: props.players[i].playerName,
-      playerId: props.players[i].playerId,
       armyId: currentGame.value.players[i].id,
       armyName: currentGame.value.players[i].name,
       damage: inputs[props.players[i].playerName],
@@ -85,10 +88,10 @@ const handleFormSubmit = () => {
         </div>
       </div>
       <input
-        class="c-current-game__input--password"
+        class="c-current-game__input--comment"
         type="text"
-        v-model="temporaryPassword"
-        placeholder="password xD"
+        v-model="comment"
+        placeholder="comment"
       />
       <button class="c-current-game__submit" :disabled="disableSubmitButton">
         {{ request.submitBtn }}
