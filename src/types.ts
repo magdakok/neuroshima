@@ -26,5 +26,5 @@ export interface Gamelog {
   time: string;
   userUID: string;
   players: GamelogPlayer[];
-  password: string;
+  comments: string;
 }

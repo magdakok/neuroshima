@@ -26,6 +26,6 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/components/MainPage.vue"
-  ],
+, "src/store/mutations.js"  ],
   "exclude": ["node_modules"]
 }

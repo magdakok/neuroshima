@@ -19,8 +19,7 @@ const handleSubmit = () => {
     players: [],
   };
   playerInputs.value.forEach((player, i) => {
-    console.log(player);
-    userData.players.push({ name: player });
+    userData.players.push(player);
   });
   console.log(userData);
   store.dispatch("registerAction", {

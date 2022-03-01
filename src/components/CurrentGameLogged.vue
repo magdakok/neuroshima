@@ -15,12 +15,11 @@ const store = useStore();
 
 const props = defineProps({
   games: { type: Object as PropType<any[]> },
-  players: { type: Object as PropType<any[]>, required: true },
   request: { type: Object, required: true },
 });
 
 onBeforeMount(() => {
-  props.players.forEach((player) => (inputs[player.playerName] = 0));
+  store.getters.getPlayers.forEach((player) => (inputs[player] = 0));
 });
 
 const currentGame = computed(() => props.games[props.games.length - 1]);
@@ -47,14 +46,15 @@ const handleFormSubmit = () => {
 
   currentGame.value.players.forEach((player, i) => {
     let playerData: GamelogPlayer = {
-      playerName: props.players[i].playerName,
+      playerName: store.getters.getPlayers[i],
       armyId: currentGame.value.players[i].id,
       armyName: currentGame.value.players[i].name,
-      damage: inputs[props.players[i].playerName],
+      damage: inputs[store.getters.getPlayers[i]],
     };
 
     payload.players.push(playerData);
   });
+  console.log(payload);
 
   emit("handleGameLogEmit", payload);
 };
@@ -75,15 +75,17 @@ const handleFormSubmit = () => {
           v-for="(playerArmy, i) in currentGame.players"
           :key="playerArmy"
         >
-          <span class="c-current-game__name">{{ players[i].playerName }}</span>
+          <span class="c-current-game__name">{{
+            store.getters.getPlayers[i]
+          }}</span>
           <span class="c-current-game__army">{{ playerArmy.name }}</span>
           <input
             class="c-current-game__input--damage"
             type="number"
             min="0"
             max="20"
-            :name="'inputDamage' + players[i].playerName"
-            v-model="inputs[players[i].playerName]"
+            :name="'inputDamage' + store.getters.getPlayers[i]"
+            v-model="inputs[store.getters.getPlayers[i]]"
           />
         </div>
       </div>

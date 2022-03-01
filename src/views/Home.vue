@@ -4,7 +4,6 @@ import ArmiesForm from "@/components/ArmiesForm.vue";
 import CurrentGameLogged from "@/components/CurrentGameLogged.vue";
 import CurrentGameAnonymous from "@/components/CurrentGameAnonymous.vue";
 import dataAllArmies from "@/data-all-armies.json";
-import dataPlayers from "@/data-players.json";
 import db from "@/firebase/firebaseInit";
 import { collection, addDoc } from "firebase/firestore/lite";
 import { Request, Gamelog } from "@/types";
@@ -12,7 +11,6 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const players = ref(dataPlayers);
 const armies = ref(dataAllArmies);
 const games = ref([]);
 const request: Request = reactive({
@@ -61,16 +59,14 @@ const resetRequest = () => {
 <template>
   <ArmiesForm
     :armies="armies"
-    :players="players"
     @handleArmiesEmit="handleArmiesEmit"
     @resetRequest="resetRequest"
   />
   <CurrentGameLogged
     v-if="store.getters.isUserAuth"
     :games="games"
-    :players="players"
     :request="request"
     @handleGameLogEmit="handleGameLogEmit"
   />
-  <CurrentGameAnonymous v-else :games="games" :players="players" />
+  <CurrentGameAnonymous v-else :games="games" />
 </template>

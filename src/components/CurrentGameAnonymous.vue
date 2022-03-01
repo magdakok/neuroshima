@@ -8,9 +8,12 @@ import {
   ref,
 } from "@vue/runtime-core";
 
+import { useStore } from "vuex";
+
+const store = useStore();
+
 const props = defineProps({
   games: { type: Object as PropType<any[]> },
-  players: { type: Object as PropType<any[]>, required: true },
 });
 
 const currentGame = computed(() => props.games[props.games.length - 1]);
@@ -31,7 +34,9 @@ const createDate = (timestamp: number) => {
           v-for="(playerArmy, i) in currentGame.players"
           :key="playerArmy"
         >
-          <span class="c-current-game__name">{{ players[i].playerName }}</span>
+          <span class="c-current-game__name">{{
+            store.getters.getPlayers[i]
+          }}</span>
           <span class="c-current-game__army">{{ playerArmy.name }}</span>
         </div>
       </div>

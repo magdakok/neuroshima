@@ -1,8 +1,4 @@
-[
-  {
-    "playerName": "Magda"
-  },
-  {
-    "playerName": "Ollie"
-  }
-]
+{
+  "userUID": "abcd",
+  "players": ["User X", "User Z"]
+}

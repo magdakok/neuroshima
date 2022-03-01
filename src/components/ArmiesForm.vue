@@ -7,10 +7,12 @@ import {
   ref,
 } from "@vue/runtime-core";
 import { Army } from "@/types";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const props = defineProps({
   armies: { type: Object as PropType<Army[]>, required: true },
-  players: { type: Object as PropType<any[]>, required: true },
 });
 
 const availableArmies = computed(() => {
@@ -31,7 +33,7 @@ const emit = defineEmits<{
 }>();
 
 const handleSubmit = () => {
-  if (leftArmiesLength.value < props.players.length) {
+  if (leftArmiesLength.value < store.getters.getPlayers.length) {
     leftArmies.value = [...checkedArmies.value];
   }
   createGame();
@@ -41,7 +43,7 @@ const handleSubmit = () => {
 
 function createGame() {
   const playersArray = [];
-  for (let i = 0; i < props.players.length; i++) {
+  for (let i = 0; i < store.getters.getPlayers.length; i++) {
     playersArray[i] = pickArmy();
   }
 
