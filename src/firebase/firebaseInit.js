@@ -29,13 +29,9 @@ const firebaseConfigProd = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
-console.log(process.env);
-
 // Initialize Firebase
 
-const firebaseApp = initializeApp(
-  PROD ? firebaseConfigProd : firebaseConfigDev
-);
+const firebaseApp = initializeApp(PROD ? firebaseConfigDev : firebaseConfigDev);
 const db = getFirestore(firebaseApp);
 
 export default db;
