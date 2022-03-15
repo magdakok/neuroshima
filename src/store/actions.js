@@ -21,6 +21,8 @@ const actions = {
         const docRef = addDoc(collection(db, "users"), {
           ...payload.dbUserData,
           userUID: this.getters.getUser.uid,
+          registrationTime: Date.now(),
+          log: [],
         });
       })
       .catch((error) => {
@@ -44,6 +46,7 @@ const actions = {
     signOut(auth)
       .then(() => {
         commit("setUser", null);
+        commit("setPlayers", ["Player 1", "Player 2"]);
       })
       .catch((error) => {
         console.log(error.message);

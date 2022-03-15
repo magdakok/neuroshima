@@ -29,6 +29,8 @@ const firebaseConfigProd = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
+console.log(process.env);
+
 // Initialize Firebase
 
 const firebaseApp = initializeApp(
