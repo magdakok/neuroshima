@@ -7,7 +7,7 @@ import Footer from "@/components/Footer.vue";
 const store = useStore();
 
 onBeforeMount(() => {
-  // store.dispatch("authAction");
+  store.dispatch("authAction");
 });
 </script>
 
