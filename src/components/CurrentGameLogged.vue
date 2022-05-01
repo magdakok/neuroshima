@@ -25,7 +25,7 @@ onBeforeMount(() => {
 const disableSubmitButton = computed(
   () => props.request.activeRequest && props.request.success
 );
-const inputs = reactive({});
+const inputs = reactive({} as number[]);
 const comment = ref<string>("");
 
 const createDate = (timestamp: number) => {

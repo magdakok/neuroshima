@@ -31,7 +31,7 @@ const anonymousPlayersNumber = ref<any>("2");
 let leftArmiesSet: any;
 
 const emit = defineEmits<{
-  (event: "handleArmiesEmit" | "resetRequest", value: any[] | void): void;
+  (event: "resetRequest", value: any[] | void): void;
 }>();
 
 const handleSubmit = () => {

@@ -47,6 +47,8 @@ const actions = {
       .then(() => {
         commit("setUser", null);
         commit("setPlayers", ["Player 1", "Player 2"]);
+        commit("setTempGamesLog", []);
+        commit("setCurrentGame", {});
       })
       .catch((error) => {
         console.log(error.message);
@@ -73,6 +75,8 @@ const actions = {
       (el, index) => `Player ${index + 1}`
     );
     commit("setPlayers", playersArray);
+    commit("setTempGamesLog", []);
+    commit("setCurrentGame", {});
   },
   addToTempGamesLogAction({ commit }, payload) {
     commit("setTempGamesLog", payload);
