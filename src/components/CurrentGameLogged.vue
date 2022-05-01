@@ -73,10 +73,14 @@ const handleFormSubmit = () => {
           v-for="(playerArmy, i) in currentGame.players"
           :key="playerArmy"
         >
-          <span class="c-current-game__name">{{
-            store.getters.getPlayers[i]
-          }}</span>
-          <span class="c-current-game__army">{{ playerArmy.name }}</span>
+          <span class="c-current-game__name"
+            >{{ store.getters.getPlayers[i] }}
+          </span>
+          <span
+            class="c-current-game__army"
+            :style="{ 'border-color': playerArmy.color }"
+            >{{ playerArmy.name }}</span
+          >
           <input
             class="c-current-game__input--damage"
             type="number"
@@ -87,7 +91,7 @@ const handleFormSubmit = () => {
           />
         </div>
       </div>
-      <input
+      <textarea
         class="c-current-game__input--comment"
         type="text"
         v-model="comment"

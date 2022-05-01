@@ -79,6 +79,7 @@ function setAsPlayed(army: Army) {
 </script>
 <template>
   <form
+    class="c-army-form__form"
     @submit.prevent="handleSubmit"
     @change="handleChange"
     :key="templateKey"

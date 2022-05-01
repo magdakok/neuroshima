@@ -4,7 +4,11 @@ import actions from "@/store/actions.js";
 import getters from "@/store/getters.js";
 
 const initialState = () => {
-  return { user: null, error: null, players: ["Magda", "Ollie"] };
+  return {
+    user: null,
+    error: null,
+    players: ["Player 1", "Player 2", "Player 3", "Player 4"],
+  };
 };
 
 export default createStore({

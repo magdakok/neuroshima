@@ -1,48 +1,84 @@
+.c-current-game {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .c-current-game__container {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: $spacing-l;
 }
 .c-current-game__time {
   display: inline-block;
   font-size: 22px;
-  margin-bottom: 10px;
+  margin-bottom: $spacing-m;
+  padding-bottom: $spacing-s;
+  border-bottom: 2px solid $accent-strong;
 }
 .c-current-game__players {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 220px));
+  gap: $spacing-m;
   font-size: 20px;
-  display: flex;
-  min-width: 350px;
+  justify-content: center;
+  align-content: center;
 }
 .c-current-game__player {
-  min-width: 100px;
+  text-align: center;
+  border: 1px solid $accent-tiny;
+  border-radius: 6px;
+  padding: $spacing-m;
 }
 .c-current-game__name {
-  margin-bottom: 8px;
   display: block;
+  margin-bottom: $spacing-m;
 }
 .c-current-game__army {
-  margin-bottom: 8px;
-  display: block;
+  display: inline-block;
+  margin-bottom: $spacing-m;
+  padding: $spacing-s;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50px;
 }
 .c-current-game__input--damage {
-  font-size: 25px;
-  padding: 10px;
+  font-size: 22px;
+  padding: $spacing-m;
+  display: block;
+  width: rem(75px);
+  background-color: $primary;
+  border: 1px solid $accent-tiny;
+  border-radius: 6px;
+  margin: 0 auto;
+  color: $white;
 
   text-align: center;
 }
 
-.c-current-game__input--password {
-  border-color: palevioletred;
-  padding: 5px;
-  font-size: 20px;
-  margin: 10px;
-  box-shadow: none;
+.c-current-game__input--comment {
+  font-size: 16px;
+  width: rem(300px);
+  margin: $spacing-m auto;
+  padding: $spacing-s;
+  display: block;
+  background-color: $primary;
+  border: 1px solid $accent-tiny;
+  border-radius: 6px;
+  font-family: inherit;
+  color: $white;
+
+  text-align: center;
 }
 
 .c-current-game__submit {
   display: block;
-  padding: 8px 15px;
+  padding: rem(10px) rem(20px);
   font-size: 25px;
+  color: $white;
+  border: 1px $primary-light solid;
+  border-radius: 50px;
+  background-color: $primary;
+  margin: 0 auto;
 }

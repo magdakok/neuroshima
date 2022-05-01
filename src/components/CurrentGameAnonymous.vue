@@ -37,7 +37,11 @@ const createDate = (timestamp: number) => {
           <span class="c-current-game__name">{{
             store.getters.getPlayers[i]
           }}</span>
-          <span class="c-current-game__army">{{ playerArmy.name }}</span>
+          <span
+            class="c-current-game__army"
+            :style="{ 'border-color': playerArmy.color }"
+            >{{ playerArmy.name }}</span
+          >
         </div>
       </div>
     </div>

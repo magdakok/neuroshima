@@ -14,7 +14,9 @@ onBeforeMount(() => {
 <template>
   <Header />
   <main class="c-main">
-    <router-view />
+    <div class="o-wrapper">
+      <router-view />
+    </div>
   </main>
   <Footer />
 </template>
