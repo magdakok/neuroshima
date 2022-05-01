@@ -17,6 +17,9 @@ const getters = {
   getCurrentGame(state) {
     return state.currentGame;
   },
+  getScoreInputs(state) {
+    return state.scoreInputs;
+  },
 };
 
 export default getters;

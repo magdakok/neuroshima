@@ -56,7 +56,7 @@ function createGame() {
   let gamesLog = store.getters.getTempGamesLog;
   gamesLog.push(newGame);
 
-  store.dispatch("addToTempGamesLogAction", gamesLog);
+  store.commit("setTempGamesLog", gamesLog);
   store.commit("setCurrentGame", newGame);
 
   leftArmiesSet = new Set();

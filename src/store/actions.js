@@ -78,9 +78,6 @@ const actions = {
     commit("setTempGamesLog", []);
     commit("setCurrentGame", {});
   },
-  addToTempGamesLogAction({ commit }, payload) {
-    commit("setTempGamesLog", payload);
-  },
 };
 
 export default actions;

@@ -14,6 +14,9 @@ const mutations = {
   setCurrentGame(state, payload) {
     state.currentGame = payload;
   },
+  setScoreInputs(state, payload) {
+    state.scoreInputs = payload;
+  },
 };
 
 export default mutations;

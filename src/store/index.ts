@@ -10,6 +10,7 @@ const initialState = () => {
     players: ["Player 1", "Player 2"],
     tempGamesLog: [],
     currentGame: {},
+    scoreInputs: [],
   };
 };
 

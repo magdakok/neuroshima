@@ -53,10 +53,10 @@ const resetRequest = () => {
 </script>
 <template>
   <ArmiesForm :armies="armies" @resetRequest="resetRequest" />
+  <CurrentGameAnonymous v-if="!store.getters.isUserAuth" />
   <CurrentGameLogged
-    v-if="store.getters.isUserAuth"
+    v-else
     :request="request"
     @handleGameLogEmit="handleGameLogEmit"
   />
-  <CurrentGameAnonymous v-else />
 </template>

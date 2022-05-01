@@ -4,10 +4,10 @@ import {
   PropType,
   computed,
   defineEmits,
-  reactive,
   onBeforeMount,
   ref,
-  onBeforeUpdate,
+  watchEffect,
+  onMounted,
 } from "@vue/runtime-core";
 import { GamelogPlayer } from "@/types";
 import { useStore } from "vuex";
@@ -18,14 +18,36 @@ const props = defineProps({
   request: { type: Object, required: true },
 });
 
+const resetScoreInputs = () => {
+  store.getters.getPlayers.forEach((player, index) => {
+    scoreInputs.value[index] = 0;
+  });
+};
+
 onBeforeMount(() => {
-  store.getters.getPlayers.forEach((player, index) => (inputs[index] = 0));
+  resetScoreInputs();
+});
+
+onMounted(() => {
+  watchEffect(() => {
+    const data = store.getters.getCurrentGame;
+    resetScoreInputs();
+  });
+});
+
+const scoreInputs = computed({
+  get(): string {
+    return store.getters.getScoreInputs;
+  },
+  set(value) {
+    store.commit("setScoreInputs", value);
+  },
 });
 
 const disableSubmitButton = computed(
   () => props.request.activeRequest && props.request.success
 );
-const inputs = reactive([] as number[]);
+
 const comment = ref<string>("");
 
 const createDate = (timestamp: number) => {
@@ -48,7 +70,7 @@ const handleFormSubmit = () => {
       playerName: store.getters.getPlayers[i],
       armyId: store.getters.getCurrentGame.players[i].id,
       armyName: store.getters.getCurrentGame.players[i].name,
-      damage: inputs[i],
+      damage: store.getters.getScoreInputs[i],
     };
 
     payload.players.push(playerData);
@@ -86,7 +108,7 @@ const handleFormSubmit = () => {
             min="0"
             :max="playerArmy.name === 'Dancer' ? 30 : 20"
             :name="'inputDamage' + store.getters.getPlayers[i]"
-            v-model="inputs[i]"
+            v-model="scoreInputs[i]"
           />
         </div>
       </div>
