@@ -85,7 +85,7 @@ const handleFormSubmit = () => {
             class="c-current-game__input--damage"
             type="number"
             min="0"
-            max="20"
+            :max="playerArmy.name === 'Dancer' ? 30 : 20"
             :name="'inputDamage' + store.getters.getPlayers[i]"
             v-model="inputs[store.getters.getPlayers[i]]"
           />
