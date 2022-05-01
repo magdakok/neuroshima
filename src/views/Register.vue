@@ -44,13 +44,13 @@ const handleSubmit = () => {
         />
       </div>
       <div class="c-field__group">
-        <label class="c-field__label" for="register-email">Password</label>
+        <label class="c-field__label" for="register-password">Password</label>
         <input
           type="password"
           class="c-register__input"
           placeholder="password"
           v-model="password"
-          id="register-email"
+          id="register-password"
           required
         />
       </div>

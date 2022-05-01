@@ -19,7 +19,7 @@
 }
 .c-current-game__players {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 220px));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
   gap: $spacing-m;
   font-size: 20px;
   justify-content: center;

@@ -91,10 +91,12 @@ function setAsPlayed(army: Army) {
 }
 </script>
 <template>
+  <h1 class="visually-hidden">Neuroshima - random army picker</h1>
   <form
     class="c-army-form__form"
     @submit.prevent="handleSubmit"
     @change="handleCheckboxChange"
+    aria-label="Pick your available armies"
     :key="templateKey"
   >
     <div class="c-army-checkbox__container">

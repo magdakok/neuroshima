@@ -107,9 +107,15 @@ const handleFormSubmit = () => {
             type="number"
             min="0"
             :max="playerArmy.name === 'Dancer' ? 30 : 20"
+            :id="'inputDamage' + store.getters.getPlayers[i]"
             :name="'inputDamage' + store.getters.getPlayers[i]"
             v-model="scoreInputs[i]"
           />
+          <label
+            class="visually-hidden"
+            :for="'inputDamage' + store.getters.getPlayers[i]"
+            >{{ playerArmy.name }} damage points</label
+          >
         </div>
       </div>
       <textarea
