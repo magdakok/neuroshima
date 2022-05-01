@@ -13,3 +13,46 @@
   height: 1px;
   overflow: hidden;
 }
+
+.c-field__group {
+  margin-bottom: $spacing-m;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.c-field__label {
+  display: inline-block;
+  margin-bottom: $spacing-s;
+  width: rem(100px);
+}
+
+.c-field__select {
+  display: block;
+  background-color: $primary;
+  border: 1px solid $accent-tiny;
+  border-radius: 6px;
+  font-family: inherit;
+  color: $white;
+  padding: rem(6px) rem(8px);
+}
+
+.c-base-input {
+  display: block;
+  background-color: $primary;
+  border: 1px solid $accent-tiny;
+  border-radius: 6px;
+  font-family: inherit;
+  color: $white;
+  padding: rem(6px) rem(8px);
+}
+
+.c-base-button {
+  color: $white;
+  border: 1px $primary-light solid;
+  border-radius: 50px;
+  background-color: $primary;
+  cursor: pointer;
+  font-size: rem(18px);
+  padding: rem(8px) rem(12px);
+}

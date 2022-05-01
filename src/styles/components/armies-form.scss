@@ -25,17 +25,9 @@
 }
 
 .c-army-checkbox__button {
+  @extend .c-base-button;
   font-size: rem(20px);
-
   margin-bottom: rem(10px);
   padding: rem(10px) rem(20px);
-
-  cursor: pointer;
-
-  color: $white;
-  border: 1px $primary-light solid;
-  // border: none;
-  border-radius: 50px;
-  background-color: $primary;
   box-shadow: rgba($primary-light, 0.3) 0 0 16px;
 }

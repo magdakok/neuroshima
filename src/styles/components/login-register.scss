@@ -1,0 +1,18 @@
+.c-login__title,
+.c-register__title {
+  display: inline-block;
+  font-size: rem(26px);
+  margin-bottom: $spacing-m;
+  padding-bottom: $spacing-s;
+  border-bottom: 2px solid $accent-strong;
+}
+
+.c-login__input,
+.c-register__input {
+  @extend .c-base-input;
+}
+
+.c-login__submit,
+.c-register__submit {
+  @extend .c-base-button;
+}

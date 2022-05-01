@@ -11,6 +11,7 @@ module.exports = {
             @import "@/styles/base/main.scss";
             @import "@/styles/components/header.scss";
             @import "@/styles/components/footer.scss";
+            @import "@/styles/components/login-register.scss";
             @import "@/styles/components/armies-form.scss";
             @import "@/styles/components/current-game.scss";
         `,
