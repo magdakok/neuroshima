@@ -8,6 +8,8 @@ const initialState = () => {
     user: null,
     error: null,
     players: ["Player 1", "Player 2"],
+    tempGamesLog: [],
+    currentGame: {},
   };
 };
 

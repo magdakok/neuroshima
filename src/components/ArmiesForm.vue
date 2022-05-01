@@ -24,7 +24,7 @@ const leftArmiesLength = computed(() => {
 
 const checkedArmies = ref<Army[]>([...availableArmies.value]);
 const leftArmies = ref<Army[]>([...availableArmies.value]);
-const games = ref<any>([]);
+// const games = ref<any>([]);
 const templateKey = ref<string>("");
 const anonymousPlayersNumber = ref<any>("2");
 
@@ -49,11 +49,16 @@ function createGame() {
     playersArray[i] = pickArmy();
   }
 
-  games.value.push({
+  const newGame = {
     players: playersArray,
     time: Date.now(),
-  });
-  emit("handleArmiesEmit", games.value);
+  };
+
+  let gamesLog = store.getters.getTempGamesLog;
+  gamesLog.push(newGame);
+
+  store.dispatch("addToTempGamesLogAction", gamesLog);
+  store.commit("setCurrentGame", newGame);
 
   leftArmiesSet = new Set();
   leftArmies.value.forEach((leftArmy: Army) => leftArmiesSet.add(leftArmy.id));

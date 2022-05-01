@@ -8,6 +8,12 @@ const mutations = {
   setPlayers(state, payload) {
     state.players = payload;
   },
+  setTempGamesLog(state, payload) {
+    state.tempGamesLog = payload;
+  },
+  setCurrentGame(state, payload) {
+    state.currentGame = payload;
+  },
 };
 
 export default mutations;

@@ -74,6 +74,9 @@ const actions = {
     );
     commit("setPlayers", playersArray);
   },
+  addToTempGamesLogAction({ commit }, payload) {
+    commit("setTempGamesLog", payload);
+  },
 };
 
 export default actions;

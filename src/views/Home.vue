@@ -12,17 +12,12 @@ import { useStore } from "vuex";
 const store = useStore();
 
 const armies = ref(dataAllArmies);
-const games = ref([]);
 const request: Request = reactive({
   activeRequest: false,
   success: null,
   message: null,
   submitBtn: "Save",
 });
-
-const handleArmiesEmit = (payload: any) => {
-  games.value = payload;
-};
 
 const handleGameLogEmit = async (payload: Gamelog) => {
   try {
@@ -64,9 +59,8 @@ const resetRequest = () => {
   />
   <CurrentGameLogged
     v-if="store.getters.isUserAuth"
-    :games="games"
     :request="request"
     @handleGameLogEmit="handleGameLogEmit"
   />
-  <CurrentGameAnonymous v-else :games="games" />
+  <CurrentGameAnonymous v-else />
 </template>

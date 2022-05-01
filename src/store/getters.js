@@ -11,6 +11,12 @@ const getters = {
   getPlayers(state) {
     return state.players;
   },
+  getTempGamesLog(state) {
+    return state.tempGamesLog;
+  },
+  getCurrentGame(state) {
+    return state.currentGame;
+  },
 };
 
 export default getters;

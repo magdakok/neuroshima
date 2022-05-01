@@ -15,7 +15,6 @@ import { useStore } from "vuex";
 const store = useStore();
 
 const props = defineProps({
-  games: { type: Object as PropType<any[]> },
   request: { type: Object, required: true },
 });
 
@@ -23,7 +22,6 @@ onBeforeMount(() => {
   store.getters.getPlayers.forEach((player) => (inputs[player] = 0));
 });
 
-const currentGame = computed(() => props.games[props.games.length - 1]);
 const disableSubmitButton = computed(
   () => props.request.activeRequest && props.request.success
 );
@@ -38,18 +36,18 @@ const emit =
   defineEmits<{ (event: "handleGameLogEmit", value: any[]): void }>();
 const handleFormSubmit = () => {
   let payload = {
-    gameId: currentGame.value.time + "-" + store.getters.getUser.uid,
-    time: createDate(currentGame.value.time),
+    gameId: store.getters.getCurrentGame.time + "-" + store.getters.getUser.uid,
+    time: createDate(store.getters.getCurrentGame.time),
     userUID: store.getters.getUser.uid,
     players: [],
     comment: comment.value,
   };
 
-  currentGame.value.players.forEach((player, i) => {
+  store.getters.getCurrentGame.players.forEach((player, i) => {
     let playerData: GamelogPlayer = {
       playerName: store.getters.getPlayers[i],
-      armyId: currentGame.value.players[i].id,
-      armyName: currentGame.value.players[i].name,
+      armyId: store.getters.getCurrentGame.players[i].id,
+      armyName: store.getters.getCurrentGame.players[i].name,
       damage: inputs[store.getters.getPlayers[i]],
     };
 
@@ -63,15 +61,15 @@ const handleFormSubmit = () => {
     <form
       class="c-current-game"
       @submit.prevent="handleFormSubmit"
-      v-if="games.length"
+      v-if="store.getters.getCurrentGame.time"
     >
       <span class="c-current-game__time"
-        >Game {{ createDate(currentGame.time) }}</span
+        >Game {{ createDate(store.getters.getCurrentGame.time) }}</span
       >
       <div class="c-current-game__players">
         <div
           class="c-current-game__player"
-          v-for="(playerArmy, i) in currentGame.players"
+          v-for="(playerArmy, i) in store.getters.getCurrentGame.players"
           :key="playerArmy"
         >
           <span class="c-current-game__name"

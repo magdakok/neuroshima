@@ -12,26 +12,20 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const props = defineProps({
-  games: { type: Object as PropType<any[]> },
-});
-
-const currentGame = computed(() => props.games[props.games.length - 1]);
-
 const createDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleString();
 };
 </script>
 <template>
   <div class="c-current-game__container">
-    <div class="c-current-game" v-if="games.length">
+    <div class="c-current-game" v-if="store.getters.getCurrentGame.time">
       <span class="c-current-game__time"
-        >Game {{ createDate(currentGame.time) }}</span
+        >Game {{ createDate(store.getters.getCurrentGame.time) }}</span
       >
       <div class="c-current-game__players">
         <div
           class="c-current-game__player"
-          v-for="(playerArmy, i) in currentGame.players"
+          v-for="(playerArmy, i) in store.getters.getCurrentGame.players"
           :key="playerArmy"
         >
           <span class="c-current-game__name">{{
