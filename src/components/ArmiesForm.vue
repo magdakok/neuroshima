@@ -24,7 +24,6 @@ const leftArmiesLength = computed(() => {
 
 const checkedArmies = ref<Army[]>([...availableArmies.value]);
 const leftArmies = ref<Army[]>([...availableArmies.value]);
-// const games = ref<any>([]);
 const templateKey = ref<string>("");
 const anonymousPlayersNumber = ref<any>("2");
 
@@ -132,8 +131,6 @@ function setAsPlayed(army: Army) {
           <option value="2" selected>2</option>
           <option value="3">3</option>
           <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
         </select>
       </div>
       <button class="c-army-checkbox__button" type="submit">Play!</button>
