@@ -19,13 +19,13 @@ const props = defineProps({
 });
 
 onBeforeMount(() => {
-  store.getters.getPlayers.forEach((player) => (inputs[player] = 0));
+  store.getters.getPlayers.forEach((player, index) => (inputs[index] = 0));
 });
 
 const disableSubmitButton = computed(
   () => props.request.activeRequest && props.request.success
 );
-const inputs = reactive({} as number[]);
+const inputs = reactive([] as number[]);
 const comment = ref<string>("");
 
 const createDate = (timestamp: number) => {
@@ -48,7 +48,7 @@ const handleFormSubmit = () => {
       playerName: store.getters.getPlayers[i],
       armyId: store.getters.getCurrentGame.players[i].id,
       armyName: store.getters.getCurrentGame.players[i].name,
-      damage: inputs[store.getters.getPlayers[i]],
+      damage: inputs[i],
     };
 
     payload.players.push(playerData);
@@ -86,7 +86,7 @@ const handleFormSubmit = () => {
             min="0"
             :max="playerArmy.name === 'Dancer' ? 30 : 20"
             :name="'inputDamage' + store.getters.getPlayers[i]"
-            v-model="inputs[store.getters.getPlayers[i]]"
+            v-model="inputs[i]"
           />
         </div>
       </div>
