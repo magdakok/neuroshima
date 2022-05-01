@@ -7,7 +7,7 @@ const initialState = () => {
   return {
     user: null,
     error: null,
-    players: ["Player 1", "Player 2", "Player 3", "Player 4"],
+    players: ["Player 1", "Player 2"],
   };
 };
 

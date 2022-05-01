@@ -7,6 +7,7 @@ import {
   reactive,
   onBeforeMount,
   ref,
+  onBeforeUpdate,
 } from "@vue/runtime-core";
 import { GamelogPlayer } from "@/types";
 import { useStore } from "vuex";
@@ -27,7 +28,7 @@ const disableSubmitButton = computed(
   () => props.request.activeRequest && props.request.success
 );
 const inputs = reactive({});
-const comment = ref<string>();
+const comment = ref<string>("");
 
 const createDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleString();

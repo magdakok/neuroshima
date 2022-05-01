@@ -26,6 +26,8 @@ const checkedArmies = ref<Army[]>([...availableArmies.value]);
 const leftArmies = ref<Army[]>([...availableArmies.value]);
 const games = ref<any>([]);
 const templateKey = ref<string>("");
+const anonymousPlayersNumber = ref<any>("2");
+
 let leftArmiesSet: any;
 
 const emit = defineEmits<{
@@ -65,8 +67,15 @@ function pickArmy() {
   )[0];
 }
 
-const handleChange = () => {
+const handleCheckboxChange = () => {
   leftArmies.value = [...checkedArmies.value];
+};
+
+const handleAnonymousPlayersChange = () => {
+  store.dispatch(
+    "anonymousPlayersAction",
+    parseInt(anonymousPlayersNumber.value)
+  );
 };
 
 function setAsPlayed(army: Army) {
@@ -81,7 +90,7 @@ function setAsPlayed(army: Army) {
   <form
     class="c-army-form__form"
     @submit.prevent="handleSubmit"
-    @change="handleChange"
+    @change="handleCheckboxChange"
     :key="templateKey"
   >
     <div class="c-army-checkbox__container">
@@ -102,7 +111,28 @@ function setAsPlayed(army: Army) {
         >
       </div>
     </div>
-    <button class="c-army-checkbox__button" type="submit">Play!</button>
+    <div class="c-army-checkbox__action">
+      <div v-if="!store.getters.isUserAuth" class="c-field__group">
+        <label class="c-field__label" for="playersNumber"
+          >How many players?</label
+        >
+        <select
+          class="c-field__select"
+          @change="handleAnonymousPlayersChange"
+          v-model="anonymousPlayersNumber"
+          name="playersNumber"
+          id="playersNumber"
+          required
+        >
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+      <button class="c-army-checkbox__button" type="submit">Play!</button>
+    </div>
   </form>
 </template>
 

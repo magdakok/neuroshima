@@ -68,6 +68,12 @@ const actions = {
       }
     });
   },
+  anonymousPlayersAction({ commit }, anonymousPlayersNumber) {
+    let playersArray = [...new Array(anonymousPlayersNumber)].map(
+      (el, index) => `Player ${index + 1}`
+    );
+    commit("setPlayers", playersArray);
+  },
 };
 
 export default actions;

@@ -24,6 +24,13 @@
   background-color: $primary;
 }
 
+.c-army-checkbox__action {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .c-army-checkbox__button {
   @extend .c-base-button;
   font-size: rem(20px);
