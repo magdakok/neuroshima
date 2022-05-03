@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding: $spacing-m $spacing-s;
   margin-bottom: $spacing-m;
   border-bottom: 1px solid $accent-tiny;
@@ -10,6 +11,10 @@
 .c-header__logo {
   font-size: 2rem;
   margin-right: auto;
+}
+
+.c-header__info {
+  display: flex;
 }
 
 .c-header__nav {
@@ -36,14 +41,12 @@
 }
 
 .c-header__btn-link {
-  border: none;
-  padding: 0;
   width: auto;
   overflow: visible;
   background: transparent;
   color: inherit;
   font-family: inherit;
   font-size: inherit;
-  line-height: normal;
+  line-height: inherit;
   cursor: pointer;
 }

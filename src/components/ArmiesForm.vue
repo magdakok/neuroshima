@@ -100,21 +100,24 @@ function setAsPlayed(army: Army) {
     :key="templateKey"
   >
     <div class="c-army-checkbox__container">
-      <div v-for="army in availableArmies" :army="army" :key="army.id">
-        <label
-          class="c-army-checkbox__label"
-          :for="'input' + army.id"
-          :style="{ 'border-color': army.color, opacity: setAsPlayed(army.id) }"
-          ><input
-            class="c-army-checkbox__input"
-            type="checkbox"
-            :id="'input' + army.id"
-            :value="army"
-            v-model="checkedArmies"
-            checked="checked"
-          />
+      <div
+        class="c-army-checkbox__checkbox"
+        v-for="army in availableArmies"
+        :army="army"
+        :key="army.id"
+        :style="{ 'border-color': army.color, opacity: setAsPlayed(army.id) }"
+      >
+        <label class="c-army-checkbox__label" :for="'input' + army.id">
           {{ army.name }}</label
         >
+        <input
+          class="c-army-checkbox__input"
+          type="checkbox"
+          :id="'input' + army.id"
+          :value="army"
+          v-model="checkedArmies"
+          checked="checked"
+        />
       </div>
     </div>
     <div class="c-army-checkbox__action">

@@ -6,10 +6,22 @@ body {
 
 a,
 .c-header__btn-link {
+  position: relative;
   color: $primary-light;
-  padding-bottom: 0.3rem;
+  padding: 0;
+  border: 0;
   border-bottom: 2px solid transparent;
   transition: all 0.3s;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    right: 0;
+    height: 2px;
+    width: 100%;
+    opacity: 0;
+  }
 
   &:link,
   &:visited {
@@ -20,6 +32,16 @@ a,
   &:hover,
   &:focus {
     color: $primary-light;
-    border-bottom: 2px solid $primary-light;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      right: 0;
+      height: 2px;
+      width: 100%;
+      background-color: $primary-light;
+      opacity: 1;
+    }
   }
 }
