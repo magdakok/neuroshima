@@ -99,19 +99,19 @@ function setAsPlayed(army: Army) {
     aria-label="Pick your available armies"
     :key="templateKey"
   >
-    <div class="c-army-checkbox__container">
+    <div class="c-army-form__container">
       <div
-        class="c-army-checkbox__checkbox"
+        class="c-army-form__checkbox"
         v-for="army in availableArmies"
         :army="army"
         :key="army.id"
         :style="{ 'border-color': army.color, opacity: setAsPlayed(army.id) }"
       >
-        <label class="c-army-checkbox__label" :for="'input' + army.id">
+        <label class="c-army-form__label" :for="'input' + army.id">
           {{ army.name }}</label
         >
         <input
-          class="c-army-checkbox__input"
+          class="c-army-form__input"
           type="checkbox"
           :id="'input' + army.id"
           :value="army"
@@ -120,7 +120,7 @@ function setAsPlayed(army: Army) {
         />
       </div>
     </div>
-    <div class="c-army-checkbox__action">
+    <div class="c-army-form__action">
       <div v-if="!store.getters.isUserAuth" class="c-field__group">
         <label class="c-field__label" for="playersNumber"
           >How many players?</label
@@ -138,7 +138,7 @@ function setAsPlayed(army: Army) {
           <option value="4">4</option>
         </select>
       </div>
-      <button class="c-army-checkbox__button" type="submit">Play!</button>
+      <button class="c-army-form__button" type="submit">Play!</button>
     </div>
   </form>
 </template>

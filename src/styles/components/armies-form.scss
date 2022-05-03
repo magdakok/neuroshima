@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.c-army-checkbox__container {
+.c-army-form__container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -10,7 +10,7 @@
   margin-bottom: $spacing-l;
 }
 
-.c-army-checkbox__checkbox {
+.c-army-form__checkbox {
   position: relative;
   display: flex;
   flex-direction: row-reverse;
@@ -23,7 +23,7 @@
   background-color: $primary;
 }
 
-.c-army-checkbox__label {
+.c-army-form__label {
   &::after {
     position: absolute;
     content: "";
@@ -35,7 +35,7 @@
   }
 }
 
-.c-army-checkbox__input {
+.c-army-form__input {
   appearance: none;
   background-color: #fff;
   margin: 0;
@@ -67,14 +67,14 @@
   }
 }
 
-.c-army-checkbox__action {
+.c-army-form__action {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.c-army-checkbox__button {
+.c-army-form__button {
   @extend .c-base-button;
   font-size: rem(20px);
   margin-bottom: rem(10px);
