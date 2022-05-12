@@ -1,5 +1,11 @@
 import db from "@/firebase/firebaseInit.js";
-import { collection, addDoc } from "firebase/firestore/lite";
+import {
+  collection,
+  setDoc,
+  doc,
+  getDoc,
+  getDocs,
+} from "firebase/firestore/lite";
 import { useRouter, useRoute } from "vue-router";
 import {
   getAuth,
@@ -16,9 +22,10 @@ const actions = {
       .then((userCredential) => {
         commit("setUser", userCredential.user);
         commit("setPlayers", payload.dbUserData.players);
-
-        //Add user to DB
-        const docRef = addDoc(collection(db, "users"), {
+        return userCredential.user.uid;
+      })
+      .then((uid) => {
+        const docRef = setDoc(doc(db, "users", uid), {
           ...payload.dbUserData,
           userUID: this.getters.getUser.uid,
           registrationTime: Date.now(),
@@ -35,6 +42,18 @@ const actions = {
     signInWithEmailAndPassword(auth, payload.email, payload.password)
       .then((userCredential) => {
         commit("setUser", userCredential.user);
+        return userCredential.user.uid;
+      })
+      .then((uid) => {
+        getDoc(doc(db, "users", uid)).then((docSnap) => {
+          if (docSnap.exists()) {
+            commit("setPlayers", docSnap.data().players);
+            commit("setTempGamesLog", []);
+            commit("setCurrentGame", {});
+          } else {
+            console.log("No such document!");
+          }
+        });
       })
       .catch((error) => {
         commit("setError", error.message);
