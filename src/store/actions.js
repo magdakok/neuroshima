@@ -4,7 +4,10 @@ import {
   setDoc,
   doc,
   getDoc,
+  addDoc,
   getDocs,
+  updateDoc,
+  arrayUnion,
 } from "firebase/firestore/lite";
 import { useRouter, useRoute } from "vue-router";
 import {
@@ -31,6 +34,10 @@ const actions = {
           registrationTime: Date.now(),
           log: [],
         });
+      })
+      .then(() => {
+        commit("setTempGamesLog", []);
+        commit("setCurrentGame", {});
       })
       .catch((error) => {
         commit("setError", error.message);
@@ -85,6 +92,15 @@ const actions = {
         router.replace("/");
         commit("setUser", user);
       } else {
+        getDoc(doc(db, "users", user.uid)).then((docSnap) => {
+          if (docSnap.exists()) {
+            commit("setPlayers", docSnap.data().players);
+            commit("setTempGamesLog", []);
+            commit("setCurrentGame", {});
+          } else {
+            console.log("No such document!");
+          }
+        });
         commit("setUser", user);
       }
     });
@@ -96,6 +112,15 @@ const actions = {
     commit("setPlayers", playersArray);
     commit("setTempGamesLog", []);
     commit("setCurrentGame", {});
+  },
+  logGame({ commit }, payload) {
+    addDoc(collection(db, "gameslog"), payload)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   },
 };
 

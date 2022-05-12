@@ -4,8 +4,6 @@ import ArmiesForm from "@/components/ArmiesForm.vue";
 import CurrentGameLogged from "@/components/CurrentGameLogged.vue";
 import CurrentGameAnonymous from "@/components/CurrentGameAnonymous.vue";
 import dataAllArmies from "@/data-all-armies.json";
-import db from "@/firebase/firebaseInit";
-import { collection, addDoc } from "firebase/firestore/lite";
 import { Request, Gamelog } from "@/types";
 import { useStore } from "vuex";
 
@@ -20,14 +18,7 @@ const request: Request = reactive({
 });
 
 const handleGameLogEmit = async (payload: Gamelog) => {
-  try {
-    const docRef = await addDoc(collection(db, "gameslog"), payload);
-    console.log("Document written with ID: ", docRef.id);
-    handleSuccess();
-  } catch (e) {
-    handleError();
-    console.log(e);
-  }
+  store.dispatch("logGame", payload);
 };
 
 const handleSuccess = () => {
