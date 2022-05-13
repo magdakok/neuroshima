@@ -13,6 +13,17 @@ export const useLogStore = defineStore("LogStore", {
     activeSaveRequest: false,
     activeSaveRequestSuccess: null,
   }),
+  getters: {
+    saveButtonMessage() {
+      if (this.activeSaveRequestSuccess) {
+        return "Saved";
+      } else if (!this.activeSaveRequest) {
+        return "Save";
+      } else {
+        return "Saving";
+      }
+    },
+  },
   actions: {
     anonymousPlayersAction(anonymousPlayersNumber) {
       let playersArray = [...new Array(anonymousPlayersNumber)].map(
@@ -28,7 +39,7 @@ export const useLogStore = defineStore("LogStore", {
       addDoc(collection(db, "gameslog"), payload)
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
-          this.activeSaveRequest = true;
+          this.activeSaveRequest = false;
           this.activeSaveRequestSuccess = true;
         })
         .catch((e) => {

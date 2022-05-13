@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import {
-  defineProps,
-  PropType,
   computed,
   defineEmits,
   onBeforeMount,
@@ -43,18 +41,8 @@ const scoreInputs = computed({
 });
 
 const disableSubmitButton = computed(
-  () => logStore.activeSaveRequest && logStore.activeSaveRequestSuccess
+  () => logStore.activeSaveRequest || logStore.activeSaveRequestSuccess
 );
-
-const disableSubmitButtonText = computed(() => {
-  if (logStore.activeSaveRequest && logStore.activeSaveRequestSuccess) {
-    return "Saved";
-  } else if (logStore.activeSaveRequest && !logStore.activeSaveRequestSuccess) {
-    return "Saving";
-  } else {
-    return "Save";
-  }
-});
 
 const comment = ref<string>("");
 
@@ -133,9 +121,9 @@ const handleFormSubmit = () => {
         placeholder="comment"
       />
       <button class="c-current-game__submit" :disabled="disableSubmitButton">
-        {{ disableSubmitButtonText }}
+        {{ logStore.saveButtonMessage }}
       </button>
-      <span v-if="logStore.activeSaveRequest">Active request text</span>
+      <span v-if="logStore.activeSaveRequestSuccess">Boom! Saved!</span>
     </form>
   </div>
 </template>
