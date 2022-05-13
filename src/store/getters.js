@@ -20,6 +20,12 @@ const getters = {
   getScoreInputs(state) {
     return state.scoreInputs;
   },
+  getActiveSaveRequest(state) {
+    return state.activeSaveRequest;
+  },
+  getActiveSaveRequestSuccess(state) {
+    return state.activeSaveRequestSuccess;
+  },
 };
 
 export default getters;

@@ -14,10 +14,6 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const props = defineProps({
-  request: { type: Object, required: true },
-});
-
 const resetScoreInputs = () => {
   store.getters.getPlayers.forEach((player, index) => {
     scoreInputs.value[index] = 0;
@@ -45,8 +41,26 @@ const scoreInputs = computed({
 });
 
 const disableSubmitButton = computed(
-  () => props.request.activeRequest && props.request.success
+  () =>
+    store.getters.getActiveSaveRequest &&
+    store.getters.getActiveSaveRequestSuccess
 );
+
+const disableSubmitButtonText = computed(() => {
+  if (
+    store.getters.getActiveSaveRequest &&
+    store.getters.getActiveSaveRequestSuccess
+  ) {
+    return "Saved";
+  } else if (
+    store.getters.getActiveSaveRequest &&
+    !store.getters.getActiveSaveRequestSuccess
+  ) {
+    return "Saving";
+  } else {
+    return "Save";
+  }
+});
 
 const comment = ref<string>("");
 
@@ -57,6 +71,8 @@ const createDate = (timestamp: number) => {
 const emit =
   defineEmits<{ (event: "handleGameLogEmit", value: any[]): void }>();
 const handleFormSubmit = () => {
+  store.commit("setActiveSaveRequest", true);
+
   let payload = {
     gameId: store.getters.getCurrentGame.time + "-" + store.getters.getUser.uid,
     time: createDate(store.getters.getCurrentGame.time),
@@ -125,9 +141,9 @@ const handleFormSubmit = () => {
         placeholder="comment"
       />
       <button class="c-current-game__submit" :disabled="disableSubmitButton">
-        {{ request.submitBtn }}
+        {{ disableSubmitButtonText }}
       </button>
-      <span v-if="request.activeRequest">{{ request.message }}</span>
+      <span v-if="store.getters.getActiveSaveRequest">Active request text</span>
     </form>
   </div>
 </template>

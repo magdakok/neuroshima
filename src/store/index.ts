@@ -11,6 +11,8 @@ const initialState = () => {
     tempGamesLog: [],
     currentGame: {},
     scoreInputs: [],
+    activeSaveRequest: false,
+    activeSaveRequestSuccess: null,
   };
 };
 

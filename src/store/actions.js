@@ -117,9 +117,13 @@ const actions = {
     addDoc(collection(db, "gameslog"), payload)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
+        commit("setActiveSaveRequest", true);
+        commit("setActiveSaveRequestSuccess", true);
       })
       .catch((e) => {
         console.log(e);
+        commit("setActiveSaveRequest", true);
+        commit("setActiveSaveRequestSuccess", false);
       });
   },
 };

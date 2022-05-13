@@ -39,6 +39,11 @@ const handleSubmit = () => {
   }
   createGame();
   emit("resetRequest");
+  store.commit("setActiveSaveRequest", false);
+  store.commit("setActiveSaveRequestSuccess", false);
+
+  // request.message = null;
+  // request.submitBtn = "Save";
   templateKey.value = "refreshTemplateToggle";
 };
 

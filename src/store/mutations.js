@@ -17,6 +17,12 @@ const mutations = {
   setScoreInputs(state, payload) {
     state.scoreInputs = payload;
   },
+  setActiveSaveRequest(state, payload) {
+    state.activeSaveRequest = payload;
+  },
+  setActiveSaveRequestSuccess(state, payload) {
+    state.activeSaveRequestSuccess = payload;
+  },
 };
 
 export default mutations;
