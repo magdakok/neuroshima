@@ -5,18 +5,20 @@ import CurrentGameLogged from "@/components/CurrentGameLogged.vue";
 import CurrentGameAnonymous from "@/components/CurrentGameAnonymous.vue";
 import dataAllArmies from "@/data-all-armies.json";
 import { Request, Gamelog } from "@/types";
-import { useStore } from "vuex";
+import { useUserStore } from "@/store/UserStore.js";
+import { useLogStore } from "@/store/LogStore.js";
 
-const store = useStore();
+const userStore = useUserStore();
+const logStore = useLogStore();
 
 const armies = ref(dataAllArmies);
 
 const handleGameLogEmit = async (payload: Gamelog) => {
-  store.dispatch("logGame", payload);
+  logStore.logGame(payload);
 };
 </script>
 <template>
   <ArmiesForm :armies="armies" />
-  <CurrentGameAnonymous v-if="!store.getters.isUserAuth" />
+  <CurrentGameAnonymous v-if="!userStore.isUserAuth" />
   <CurrentGameLogged v-else @handleGameLogEmit="handleGameLogEmit" />
 </template>

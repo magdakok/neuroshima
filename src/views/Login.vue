@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useStore } from "vuex";
-
-const store = useStore();
+import { useUserStore } from "@/store/UserStore.js";
+const userStore = useUserStore();
 
 const email = ref("");
 const password = ref("");
 
 const handleSubmit = () => {
-  store.dispatch("loginAction", {
+  userStore.loginAction({
     email: email.value,
     password: password.value,
   });

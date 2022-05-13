@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useStore } from "vuex";
+// FPINIA3: importing store
+import { useUserStore } from "@/store/UserStore.js";
+const userStore = useUserStore();
 
-const store = useStore();
-const loggedIn = computed(() => store.getters.isUserAuth);
-const user = computed(() => store.getters.getUser);
+// FPINIA4: we don't have to use any getters now, just userStore.user now!
+// same with accessing getters
+
+// const user = computed(() => store.getters.getUser);
 
 const handleLogOut = () => {
-  store.dispatch("logoutAction");
+  userStore.logoutAction();
 };
 </script>
 <template>
@@ -16,11 +18,11 @@ const handleLogOut = () => {
       >Neuroshima <span class="visually-hidden">- main page</span></router-link
     >
     <div class="c-header__info">
-      <span v-if="loggedIn" class="c-header__user"
-        >Logged as {{ user.email }}</span
+      <span v-if="userStore.isUserAuth" class="c-header__user"
+        >Logged as {{ userStore.user.email }}</span
       >
       <nav class="c-header__nav" aria-label="Menu">
-        <ul class="c-header__nav-list" v-if="loggedIn" role="list">
+        <ul class="c-header__nav-list" v-if="userStore.isUserAuth" role="list">
           <li class="c-header__nav-list-item" role="listitem">
             <button class="c-header__btn-link" @click="handleLogOut">
               Log out

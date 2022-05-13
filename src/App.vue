@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { onBeforeMount } from "vue";
-import { useStore } from "vuex";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
-
-const store = useStore();
+import { useUserStore } from "@/store/UserStore.js";
+const userStore = useUserStore();
 
 onBeforeMount(() => {
-  store.dispatch("authAction");
+  userStore.authAction();
 });
 </script>
 

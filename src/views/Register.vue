@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, computed } from "vue";
-import { useStore } from "vuex";
-
-const store = useStore();
+import { useUserStore } from "@/store/UserStore.js";
+const userStore = useUserStore();
 
 const email = ref("");
 const password = ref("");
@@ -21,7 +20,7 @@ const handleSubmit = () => {
   playerInputs.value.forEach((player, i) => {
     userData.players.push(player);
   });
-  store.dispatch("registerAction", {
+  userStore.registerAction({
     email: email.value,
     password: password.value,
     dbUserData: userData,

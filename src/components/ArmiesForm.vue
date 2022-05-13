@@ -7,9 +7,11 @@ import {
   ref,
 } from "@vue/runtime-core";
 import { Army } from "@/types";
-import { useStore } from "vuex";
+import { useUserStore } from "@/store/UserStore.js";
+import { useLogStore } from "@/store/LogStore.js";
 
-const store = useStore();
+const userStore = useUserStore();
+const logStore = useLogStore();
 
 const props = defineProps({
   armies: { type: Object as PropType<Army[]>, required: true },
@@ -34,13 +36,13 @@ const emit = defineEmits<{
 }>();
 
 const handleSubmit = () => {
-  if (leftArmiesLength.value < store.getters.getPlayers.length) {
+  if (leftArmiesLength.value < userStore.players.length) {
     leftArmies.value = [...checkedArmies.value];
   }
   createGame();
   emit("resetRequest");
-  store.commit("setActiveSaveRequest", false);
-  store.commit("setActiveSaveRequestSuccess", false);
+  logStore.activeSaveRequest = false;
+  logStore.activeSaveRequestSuccess = false;
 
   // request.message = null;
   // request.submitBtn = "Save";
@@ -49,7 +51,7 @@ const handleSubmit = () => {
 
 function createGame() {
   const playersArray = [];
-  for (let i = 0; i < store.getters.getPlayers.length; i++) {
+  for (let i = 0; i < userStore.players.length; i++) {
     playersArray[i] = pickArmy();
   }
 
@@ -58,11 +60,11 @@ function createGame() {
     time: Date.now(),
   };
 
-  let gamesLog = store.getters.getTempGamesLog;
+  let gamesLog = logStore.tempGamesLog;
   gamesLog.push(newGame);
 
-  store.commit("setTempGamesLog", gamesLog);
-  store.commit("setCurrentGame", newGame);
+  logStore.tempGamesLog = gamesLog;
+  logStore.currentGame = newGame;
 
   leftArmiesSet = new Set();
   leftArmies.value.forEach((leftArmy: Army) => leftArmiesSet.add(leftArmy.id));
@@ -81,10 +83,7 @@ const handleCheckboxChange = () => {
 };
 
 const handleAnonymousPlayersChange = () => {
-  store.dispatch(
-    "anonymousPlayersAction",
-    parseInt(anonymousPlayersNumber.value)
-  );
+  logStore.anonymousPlayersAction(parseInt(anonymousPlayersNumber.value));
 };
 
 function setAsPlayed(army: Army) {
@@ -126,7 +125,7 @@ function setAsPlayed(army: Army) {
       </div>
     </div>
     <div class="c-army-form__action">
-      <div v-if="!store.getters.isUserAuth" class="c-field__group">
+      <div v-if="!userStore.isUserAuth" class="c-field__group">
         <label class="c-field__label" for="playersNumber"
           >How many players?</label
         >
