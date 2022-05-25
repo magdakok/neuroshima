@@ -64,13 +64,5 @@
 }
 
 .c-current-game__submit {
-  display: block;
-  padding: rem(10px) rem(20px);
-  font-size: 25px;
-  color: $white;
-  border: 1px $primary-light solid;
-  border-radius: 50px;
-  background-color: $primary;
-  margin: 0 auto;
-  cursor: pointer;
+  @extend .c-base-button;
 }

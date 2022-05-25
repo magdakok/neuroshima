@@ -29,7 +29,7 @@ export const useLogStore = defineStore("LogStore", {
       let playersArray = [...new Array(anonymousPlayersNumber)].map(
         (el, index) => `Player ${index + 1}`
       );
-      // FPINIA: using other store, soooo easy!
+      // FPINIA: using other stores
       useUserStore().players = playersArray;
 
       this.tempGamesLog = [];

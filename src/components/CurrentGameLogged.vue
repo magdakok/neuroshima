@@ -123,7 +123,7 @@ const handleFormSubmit = () => {
       <button class="c-current-game__submit" :disabled="disableSubmitButton">
         {{ logStore.saveButtonMessage }}
       </button>
-      <span v-if="logStore.activeSaveRequestSuccess">Boom! Saved!</span>
+      <div v-if="logStore.activeSaveRequestSuccess">Boom! Saved!</div>
     </form>
   </div>
 </template>

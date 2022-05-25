@@ -21,6 +21,12 @@
   border-style: solid;
   border-radius: 50px;
   background-color: $primary;
+
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $background-dark;
+  }
 }
 
 .c-army-form__label {

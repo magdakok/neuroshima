@@ -55,4 +55,16 @@
   cursor: pointer;
   font-size: rem(18px);
   padding: rem(8px) rem(12px);
+  transition: all 0.2s;
+
+  &:active,
+  &:hover {
+    background-color: $background-dark;
+  }
+
+  &:disabled {
+    background-color: $primary;
+    opacity: 0.5;
+    cursor: auto;
+  }
 }
