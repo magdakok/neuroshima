@@ -9,34 +9,42 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+
+// !FPINIA6a: using other stores
 import { useLogStore } from "@/store/LogStore.js";
 
-// FPINIA1: defineStore("UniqueStoreName", { configHere });
+// !FPINIA2: Defining a store (it's already it's own module)
+// * defineStore("UniqueStoreName", { configHere });
+
 export const useUserStore = defineStore("UserStore", {
+  // !FPINIA3: Defining a state
+  // * state() { return { ... }} OR state: () => ({})
   state: () => ({
     user: null,
     error: null,
     players: ["Player 1", "Player 2"],
   }),
+  // !FPINIA4: Defining getters
   getters: {
-    // FPINIA: or uid(){ return this.user.uid } (no passing state here, just this)
-    // for using other getters better use uid(){} way and access them with this
+    // * or uid(){ return this.user.uid } (no passing state here, just this)
+    // * for using other getters better use uid(){} way and access them with this
     uid: (state) => (state.user ? state.user.uid : null),
     isUserAuth: (state) => !!state.user,
   },
+  // !FPINIA5: Defining actions
   actions: {
     registerAction(payload) {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, payload.email, payload.password)
         .then((userCredential) => {
-          //   commit("setUser", userCredential.user);
+          // * used to be: commit("setUser", userCredential.user);
           this.user = userCredential.user;
-          //   commit("setPlayers", payload.dbUserData.players);
+          // * used to be: commit("setPlayers", payload.dbUserData.players);
           this.players = payload.dbUserData.players;
           return userCredential.user.uid;
         })
         .then((uid) => {
-          const docRef = setDoc(doc(db, "users", uid), {
+          setDoc(doc(db, "users", uid), {
             ...payload.dbUserData,
             userUID: this.user.uid,
             registrationTime: Date.now(),
@@ -44,6 +52,7 @@ export const useUserStore = defineStore("UserStore", {
           });
         })
         .then(() => {
+          // !FPINIA6b: using other stores
           useLogStore().tempGamesLog = [];
           useLogStore().currentGame = {};
         })

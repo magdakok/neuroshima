@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true,  
+    "downlevelIteration": true,
     "sourceMap": true,
     "baseUrl": ".",
     "types": ["webpack-env"],
@@ -25,7 +25,10 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "src/components/MainPage.vue"
-, "src/store/oldstore/mutations.js"  ],
+    "src/components/MainPage.vue",
+    "src/store/oldstore/mutations.js",
+    "src/store/LogStore.js",
+    "src/store/UserStore.js"
+  ],
   "exclude": ["node_modules"]
 }

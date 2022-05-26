@@ -3,9 +3,15 @@ import db from "@/firebase/firebaseInit.js";
 import { collection, addDoc } from "firebase/firestore/lite";
 import { useUserStore } from "@/store/UserStore.js";
 
-// FPINIA1: defineStore("UniqueStoreName", { configHere });
+// interface StateModel {
+//   tempGamesLog: [];
+//   currentGame: any;
+//   scoreInputs: [];
+//   activeSaveRequest: boolean;
+//   activeSaveRequestSuccess: null | boolean;
+// }
+
 export const useLogStore = defineStore("LogStore", {
-  // FPINIA2: state() { return { ... }} OR state: () => ({})
   state: () => ({
     tempGamesLog: [],
     currentGame: {},
@@ -26,10 +32,9 @@ export const useLogStore = defineStore("LogStore", {
   },
   actions: {
     anonymousPlayersAction(anonymousPlayersNumber) {
-      let playersArray = [...new Array(anonymousPlayersNumber)].map(
+      const playersArray = [...new Array(anonymousPlayersNumber)].map(
         (el, index) => `Player ${index + 1}`
       );
-      // FPINIA: using other stores
       useUserStore().players = playersArray;
 
       this.tempGamesLog = [];

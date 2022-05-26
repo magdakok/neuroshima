@@ -41,8 +41,21 @@ const handleSubmit = () => {
   }
   createGame();
   emit("resetRequest");
+
+  // !FPINIA8b: changing state
   logStore.activeSaveRequest = false;
   logStore.activeSaveRequestSuccess = false;
+
+  // ? OR
+  // logStore.$patch({
+  //   activeSaveRequest: false,
+  //   activeSaveRequestSuccess: false
+  // })
+  // ? also possible to replace the whole store
+  // logStore.$state = {
+  //   activeSaveRequest: false,
+  //   activeSaveRequestSuccess: false
+  // };
 
   // request.message = null;
   // request.submitBtn = "Save";
