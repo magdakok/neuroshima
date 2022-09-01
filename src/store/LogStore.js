@@ -13,7 +13,9 @@ import { useUserStore } from "@/store/UserStore.js";
 
 export const useLogStore = defineStore("LogStore", {
   state: () => ({
+    armies: [],
     leftArmiesSet: undefined,
+    leftArmies: undefined,
     tempGamesLog: [],
     currentGame: {},
     scoreInputs: [],
@@ -29,6 +31,12 @@ export const useLogStore = defineStore("LogStore", {
       } else {
         return "Saving";
       }
+    },
+    leftArmiesLength() {
+      return this.leftArmies.length;
+    },
+    availableArmies() {
+      return this.armies.filter((army) => army.available === true);
     },
   },
   actions: {
@@ -66,11 +74,14 @@ export const useLogStore = defineStore("LogStore", {
           this.activeSaveRequestSuccess = false;
         });
     },
-    saveSet() {
+    saveSet(left) {
+      console.log(Array.from(this.leftArmiesSet));
+      console.log(left);
       setDoc(
         doc(db, "users", useUserStore().uid),
         {
           leftArmiesSet: Array.from(this.leftArmiesSet),
+          leftArmies: Array.from(this.leftArmies),
         },
         { merge: true }
       ).catch((e) => {

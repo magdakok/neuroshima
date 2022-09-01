@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  defineEmits,
-  defineProps,
-  PropType,
-  computed,
-  ref,
-} from "@vue/runtime-core";
+import { defineEmits, computed, ref } from "@vue/runtime-core";
 import { Army } from "@/types";
 import { useUserStore } from "@/store/UserStore.js";
 import { useLogStore } from "@/store/LogStore.js";
@@ -13,19 +7,7 @@ import { useLogStore } from "@/store/LogStore.js";
 const userStore = useUserStore();
 const logStore = useLogStore();
 
-const props = defineProps({
-  armies: { type: Object as PropType<Army[]>, required: true },
-});
-
-const availableArmies = computed(() => {
-  return props.armies.filter((army: Army) => army.available === true);
-});
-const leftArmiesLength = computed(() => {
-  return [...leftArmies.value].length;
-});
-
-const checkedArmies = ref<Army[]>([...availableArmies.value]);
-const leftArmies = ref<Army[]>([...availableArmies.value]);
+const checkedArmies = ref<Army[]>(logStore.availableArmies);
 const templateKey = ref<string>("");
 const anonymousPlayersNumber = ref<any>("2");
 
@@ -34,8 +16,8 @@ const emit = defineEmits<{
 }>();
 
 const handleSubmit = () => {
-  if (leftArmiesLength.value < userStore.players.length) {
-    leftArmies.value = [...checkedArmies.value];
+  if (logStore.leftArmiesLength < userStore.players.length) {
+    logStore.leftArmies = [...checkedArmies.value];
   }
   createGame();
   emit("resetRequest");
@@ -43,20 +25,7 @@ const handleSubmit = () => {
   logStore.activeSaveRequest = false;
   logStore.activeSaveRequestSuccess = false;
 
-  // ? OR
-  // logStore.$patch({
-  //   activeSaveRequest: false,
-  //   activeSaveRequestSuccess: false
-  // })
-  // ? also possible to replace the whole store
-  // logStore.$state = {
-  //   activeSaveRequest: false,
-  //   activeSaveRequestSuccess: false
-  // };
-
-  // request.message = null;
-  // request.submitBtn = "Save";
-  logStore.saveSet();
+  userStore.isUserAuth && logStore.saveSet(logStore.leftArmies);
   templateKey.value = "refreshTemplateToggle";
 };
 
@@ -77,24 +46,23 @@ function createGame() {
   logStore.tempGamesLog = gamesLog;
   logStore.currentGame = newGame;
 
-  console.log(logStore.leftArmiesSet);
   logStore.leftArmiesSet = new Set();
 
-  leftArmies.value.forEach((leftArmy: Army) =>
+  logStore.leftArmies.forEach((leftArmy: Army) =>
     logStore.leftArmiesSet.add(leftArmy.id)
   );
   templateKey.value = "refreshTemplateStyles";
 }
 
 function pickArmy() {
-  return leftArmies.value.splice(
-    (leftArmiesLength.value * Math.random()) | 0,
+  return logStore.leftArmies.splice(
+    (logStore.leftArmiesLength * Math.random()) | 0,
     1
   )[0];
 }
 
 const handleCheckboxChange = () => {
-  leftArmies.value = [...checkedArmies.value];
+  logStore.leftArmies = [...checkedArmies.value];
 };
 
 const handleAnonymousPlayersChange = () => {
@@ -124,7 +92,7 @@ function setAsPlayed(army: Army) {
     <div class="c-army-form__container">
       <div
         class="c-army-form__checkbox"
-        v-for="army in availableArmies"
+        v-for="army in checkedArmies"
         :army="army"
         :key="army.id"
         :style="{ 'border-color': army.color, opacity: setAsPlayed(army.id) }"
