@@ -72,9 +72,7 @@ export const useUserStore = defineStore("UserStore", {
           getDoc(doc(db, "users", uid)).then((docSnap) => {
             if (docSnap.exists()) {
               this.players = docSnap.data().players;
-              useLogStore().leftArmiesSet = new Set(
-                docSnap.data().leftArmiesSet
-              );
+
               if (docSnap.data().leftArmies) {
                 useLogStore().leftArmies = docSnap.data().leftArmies;
               }
@@ -97,6 +95,7 @@ export const useUserStore = defineStore("UserStore", {
         .then(() => {
           this.user = null;
           this.players = ["Player 1", "Player 2"];
+          useLogStore().leftArmies = [...useLogStore().armies];
           useLogStore().tempGamesLog = [];
           useLogStore().currentGame = {};
         })
@@ -119,9 +118,7 @@ export const useUserStore = defineStore("UserStore", {
           getDoc(doc(db, "users", user.uid)).then((docSnap) => {
             if (docSnap.exists()) {
               this.players = docSnap.data().players;
-              useLogStore().leftArmiesSet = new Set(
-                docSnap.data().leftArmiesSet
-              );
+
               if (docSnap.data().leftArmies) {
                 useLogStore().leftArmies = docSnap.data().leftArmies;
               }

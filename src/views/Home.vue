@@ -13,8 +13,7 @@ const logStore = useLogStore();
 
 onBeforeMount(() => {
   logStore.armies = dataAllArmies;
-  logStore.leftArmies = dataAllArmies;
-  logStore.checkedArmies = dataAllArmies;
+  logStore.leftArmies = [...dataAllArmies];
 });
 
 const handleGameLogEmit = async (payload: Gamelog) => {
@@ -22,7 +21,7 @@ const handleGameLogEmit = async (payload: Gamelog) => {
 };
 </script>
 <template>
-  <ArmiesForm />
+  <ArmiesForm :key="userStore.user" />
   <CurrentGameAnonymous v-if="!userStore.isUserAuth" />
   <CurrentGameLogged v-else @handleGameLogEmit="handleGameLogEmit" />
 </template>

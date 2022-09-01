@@ -14,7 +14,6 @@ import { useUserStore } from "@/store/UserStore.js";
 export const useLogStore = defineStore("LogStore", {
   state: () => ({
     armies: [],
-    leftArmiesSet: undefined,
     leftArmies: undefined,
     tempGamesLog: [],
     currentGame: {},
@@ -75,12 +74,9 @@ export const useLogStore = defineStore("LogStore", {
         });
     },
     saveSet(left) {
-      console.log(Array.from(this.leftArmiesSet));
-      console.log(left);
       setDoc(
         doc(db, "users", useUserStore().uid),
         {
-          leftArmiesSet: Array.from(this.leftArmiesSet),
           leftArmies: Array.from(this.leftArmies),
         },
         { merge: true }

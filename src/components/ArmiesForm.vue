@@ -46,11 +46,6 @@ function createGame() {
   logStore.tempGamesLog = gamesLog;
   logStore.currentGame = newGame;
 
-  logStore.leftArmiesSet = new Set();
-
-  logStore.leftArmies.forEach((leftArmy: Army) =>
-    logStore.leftArmiesSet.add(leftArmy.id)
-  );
   templateKey.value = "refreshTemplateStyles";
 }
 
@@ -71,10 +66,7 @@ const handleAnonymousPlayersChange = () => {
 
 function setAsPlayed(army: Army) {
   let opacity = "1";
-  if (
-    typeof logStore.leftArmiesSet === "object" &&
-    !logStore.leftArmiesSet.has(army)
-  ) {
+  if (!logStore.leftArmies.some((a: any) => a.id === army)) {
     opacity = "0.3";
   }
   return opacity;
@@ -92,7 +84,7 @@ function setAsPlayed(army: Army) {
     <div class="c-army-form__container">
       <div
         class="c-army-form__checkbox"
-        v-for="army in checkedArmies"
+        v-for="army in logStore.availableArmies"
         :army="army"
         :key="army.id"
         :style="{ 'border-color': army.color, opacity: setAsPlayed(army.id) }"
