@@ -73,16 +73,9 @@ export const useLogStore = defineStore("LogStore", {
           leftArmiesSet: Array.from(this.leftArmiesSet),
         },
         { merge: true }
-      )
-        .then(() => {
-          this.activeSaveRequest = false;
-          this.activeSaveRequestSuccess = true;
-        })
-        .catch((e) => {
-          console.log(e);
-          this.activeSaveRequest = true;
-          this.activeSaveRequestSuccess = false;
-        });
+      ).catch((e) => {
+        console.log(e);
+      });
     },
   },
 });
