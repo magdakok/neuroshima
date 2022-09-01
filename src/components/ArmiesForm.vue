@@ -16,7 +16,9 @@ const emit = defineEmits<{
 }>();
 
 const handleSubmit = () => {
+  //handle not enough armies to play
   if (logStore.leftArmiesLength < userStore.players.length) {
+    logStore.armiesQueue = [...logStore.leftArmies];
     logStore.leftArmies = [...checkedArmies.value];
   }
   createGame();
@@ -31,8 +33,16 @@ const handleSubmit = () => {
 
 function createGame() {
   const playersArray = [];
+  let queueIds = [];
+
+  if ([...logStore.armiesQueue].length) {
+    logStore.armiesQueue.forEach((el) => {
+      queueIds.push(el.id);
+    });
+  }
+
   for (let i = 0; i < userStore.players.length; i++) {
-    playersArray[i] = pickArmy();
+    playersArray[i] = pickArmy(queueIds);
   }
 
   const newGame = {
@@ -49,11 +59,33 @@ function createGame() {
   templateKey.value = "refreshTemplateStyles";
 }
 
-function pickArmy() {
-  return logStore.leftArmies.splice(
-    (logStore.leftArmiesLength * Math.random()) | 0,
-    1
-  )[0];
+function pickArmy(queueIds) {
+  // prioritise armies from the queue
+  if (logStore.armiesQueue.length) {
+    return logStore.armiesQueue.splice(
+      (logStore.armiesQueue.length * Math.random()) | 0,
+      1
+    )[0];
+  } else {
+    // no more armies in queue
+    const randomNumber = () => {
+      return (logStore.leftArmiesLength * Math.random()) | 0;
+    };
+    // make sure that new round doesn't double prioritised queue armies
+    if (queueIds.length) {
+      let pickedArmy = [];
+      let doubledArmy = true;
+
+      while (doubledArmy) {
+        let pick = randomNumber();
+        pickedArmy = [...logStore.leftArmies][pick];
+        doubledArmy = queueIds.some((id) => id === pickedArmy.id);
+      }
+      return pickedArmy;
+    } else {
+      return logStore.leftArmies.splice(randomNumber(), 1)[0];
+    }
+  }
 }
 
 const handleCheckboxChange = () => {
@@ -66,7 +98,7 @@ const handleAnonymousPlayersChange = () => {
 
 function setAsPlayed(army: Army) {
   let opacity = "1";
-  if (!logStore.leftArmies.some((a: any) => a.id === army)) {
+  if (!logStore.leftArmies.some((a: string) => a.id === army)) {
     opacity = "0.3";
   }
   return opacity;

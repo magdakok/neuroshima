@@ -20,6 +20,7 @@ export const useLogStore = defineStore("LogStore", {
     scoreInputs: [],
     activeSaveRequest: false,
     activeSaveRequestSuccess: null,
+    armiesQueue: [],
   }),
   getters: {
     saveButtonMessage() {
