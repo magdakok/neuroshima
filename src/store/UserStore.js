@@ -72,6 +72,9 @@ export const useUserStore = defineStore("UserStore", {
           getDoc(doc(db, "users", uid)).then((docSnap) => {
             if (docSnap.exists()) {
               this.players = docSnap.data().players;
+              useLogStore().leftArmiesSet = new Set(
+                docSnap.data().leftArmiesSet
+              );
               useLogStore().tempGamesLog = [];
               useLogStore().currentGame = {};
             } else {

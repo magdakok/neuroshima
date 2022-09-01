@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import db from "@/firebase/firebaseInit.js";
-import { collection, addDoc } from "firebase/firestore/lite";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore/lite";
 import { useUserStore } from "@/store/UserStore.js";
 
 // interface StateModel {
@@ -13,6 +13,7 @@ import { useUserStore } from "@/store/UserStore.js";
 
 export const useLogStore = defineStore("LogStore", {
   state: () => ({
+    leftArmiesSet: undefined,
     tempGamesLog: [],
     currentGame: {},
     scoreInputs: [],
@@ -44,6 +45,36 @@ export const useLogStore = defineStore("LogStore", {
       addDoc(collection(db, "gameslog"), payload)
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
+          this.activeSaveRequest = false;
+          this.activeSaveRequestSuccess = true;
+        })
+        .catch((e) => {
+          console.log(e);
+          this.activeSaveRequest = true;
+          this.activeSaveRequestSuccess = false;
+        });
+
+      addDoc(collection(db, "users", useUserStore().uid, "log"), payload)
+        .then((docRef) => {
+          console.log("Document written with ID: ", docRef.id);
+          this.activeSaveRequest = false;
+          this.activeSaveRequestSuccess = true;
+        })
+        .catch((e) => {
+          console.log(e);
+          this.activeSaveRequest = true;
+          this.activeSaveRequestSuccess = false;
+        });
+    },
+    saveSet() {
+      setDoc(
+        doc(db, "users", useUserStore().uid),
+        {
+          leftArmiesSet: Array.from(this.leftArmiesSet),
+        },
+        { merge: true }
+      )
+        .then(() => {
           this.activeSaveRequest = false;
           this.activeSaveRequestSuccess = true;
         })

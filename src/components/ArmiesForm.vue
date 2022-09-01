@@ -29,8 +29,6 @@ const leftArmies = ref<Army[]>([...availableArmies.value]);
 const templateKey = ref<string>("");
 const anonymousPlayersNumber = ref<any>("2");
 
-let leftArmiesSet: any;
-
 const emit = defineEmits<{
   (event: "resetRequest", value: any[] | void): void;
 }>();
@@ -58,6 +56,7 @@ const handleSubmit = () => {
 
   // request.message = null;
   // request.submitBtn = "Save";
+  logStore.saveSet();
   templateKey.value = "refreshTemplateToggle";
 };
 
@@ -78,8 +77,12 @@ function createGame() {
   logStore.tempGamesLog = gamesLog;
   logStore.currentGame = newGame;
 
-  leftArmiesSet = new Set();
-  leftArmies.value.forEach((leftArmy: Army) => leftArmiesSet.add(leftArmy.id));
+  console.log(logStore.leftArmiesSet);
+  logStore.leftArmiesSet = new Set();
+
+  leftArmies.value.forEach((leftArmy: Army) =>
+    logStore.leftArmiesSet.add(leftArmy.id)
+  );
   templateKey.value = "refreshTemplateStyles";
 }
 
@@ -100,7 +103,10 @@ const handleAnonymousPlayersChange = () => {
 
 function setAsPlayed(army: Army) {
   let opacity = "1";
-  if (typeof leftArmiesSet === "object" && !leftArmiesSet.has(army)) {
+  if (
+    typeof logStore.leftArmiesSet === "object" &&
+    !logStore.leftArmiesSet.has(army)
+  ) {
     opacity = "0.3";
   }
   return opacity;
