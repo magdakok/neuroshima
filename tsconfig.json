@@ -26,7 +26,6 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/components/MainPage.vue",
-    "src/store/oldstore/mutations.js",
     "src/store/LogStore.js",
     "src/store/UserStore.js"
   ],

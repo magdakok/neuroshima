@@ -42,7 +42,6 @@ const handleSubmit = () => {
   createGame();
   emit("resetRequest");
 
-  // !FPINIA8b: changing state
   logStore.activeSaveRequest = false;
   logStore.activeSaveRequestSuccess = false;
 

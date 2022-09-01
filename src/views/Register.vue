@@ -21,7 +21,6 @@ const handleSubmit = () => {
     userData.players.push(player);
   });
 
-  // !FPINIA9: methods, instead of dispatch
   userStore.registerAction({
     email: email.value,
     password: password.value,

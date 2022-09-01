@@ -1,10 +1,6 @@
 <script setup lang="ts">
-// !FPINIA7: importing store
 import { useUserStore } from "@/store/UserStore.js";
 const userStore = useUserStore();
-
-// !FPINIA8: no need for computed to access Pinia state
-// const user = computed(() => store.getters.getUser);
 
 const handleLogOut = () => {
   userStore.logoutAction();
@@ -16,7 +12,6 @@ const handleLogOut = () => {
       >Neuroshima <span class="visually-hidden">- main page</span></router-link
     >
     <div class="c-header__info">
-      <!-- !FPINIA8a: using state -->
       <span v-if="userStore.isUserAuth" class="c-header__user"
         >Logged as {{ userStore.user.email }}</span
       >

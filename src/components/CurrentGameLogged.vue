@@ -43,9 +43,7 @@ const scoreInputs = computed({
 const disableSubmitButton = computed(
   () => logStore.activeSaveRequest || logStore.activeSaveRequestSuccess
 );
-
 const comment = ref<string>("");
-
 const createDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleString();
 };
