@@ -74,7 +74,7 @@ export const useLogStore = defineStore("LogStore", {
           this.activeSaveRequestSuccess = false;
         });
     },
-    saveSet(left) {
+    saveSet() {
       setDoc(
         doc(db, "users", useUserStore().uid),
         {

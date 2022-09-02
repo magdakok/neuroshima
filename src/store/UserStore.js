@@ -48,7 +48,6 @@ export const useUserStore = defineStore("UserStore", {
             ...payload.dbUserData,
             userUID: this.user.uid,
             registrationTime: Date.now(),
-            log: [],
           });
         })
         .then(() => {

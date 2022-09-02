@@ -27,7 +27,7 @@ const handleSubmit = () => {
   logStore.activeSaveRequest = false;
   logStore.activeSaveRequestSuccess = false;
 
-  userStore.isUserAuth && logStore.saveSet(logStore.leftArmies);
+  userStore.isUserAuth && logStore.saveSet();
   templateKey.value = "refreshTemplateToggle";
 };
 
@@ -81,6 +81,9 @@ function pickArmy(queueIds) {
         pickedArmy = [...logStore.leftArmies][pick];
         doubledArmy = queueIds.some((id) => id === pickedArmy.id);
       }
+      logStore.leftArmies = logStore.leftArmies.filter(
+        (army) => army.id !== pickedArmy.id
+      );
       return pickedArmy;
     } else {
       return logStore.leftArmies.splice(randomNumber(), 1)[0];
